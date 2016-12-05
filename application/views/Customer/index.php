@@ -240,8 +240,10 @@
             <div class="container">
                 <div class="col-md-12">
                     <div id="main-slider">
-                        <div class="item">
-                            <img src="<?php echo base_url();?>Produk/main-slider1.jpg" alt="" class="img-responsive">
+                        <div class="item ">
+							
+                            <img id="HPR0001" style= "width: 100%;height: 100%;"src="<?php echo base_url();?>Produk/a.jpg" alt="" class="img-responsive bannerPromo">
+							
                         </div>
                         <div class="item">
                             <img class="img-responsive" src="<?php echo base_url();?>Produk/main-slider2.jpg" alt="">
@@ -864,6 +866,20 @@
     <script src="<?php echo base_url();?>assets/js/front.js"></script>
 
 	<script>
+		$('.bannerPromo').click(
+		function(){
+			
+			$.ajax({
+				url:'<?php echo base_url("index.php/chome/getPromoId"); ?>',
+				type:       'POST',
+				data:{id:this.id},
+				cache:      false,
+				success: function(hasil){
+					window.location.href = "<?php echo site_url('/chome/searchProdukByPromo');?>";
+
+				}
+			});
+		});
 		$('.linkProduk').click(
 		function(){
 			

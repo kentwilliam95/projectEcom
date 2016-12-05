@@ -32,6 +32,40 @@ class Chome extends CI_Controller {
 		$this->session->set_userdata('filterSearch',$id);
 	}
 	
+	public function getPromoId()
+	{
+		$id=$this->input->post('id');
+		
+		$this->session->set_userdata('promoId',$id);
+	}
+	
+	public function searchProdukByPromo()
+	{
+		//Variabel milik daniel
+		$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+		$data['log'] = $this->ceklog();
+		
+		//Variabel de Fuhrer
+		$data['promo']=$this->rincian_produk_model->getPromoById($this->session->userdata('promoId'));
+		$data['hasil']=$this->rincian_produk_model->getProdukByPromo($data['promo']);
+		$data['merek']="Hasil Penelusuran untuk Promo";
+		$data['barang']=$this->rincian_produk_model->getProduk();
+		$data['kategori'] = $this->rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
+		
+		
+		
+		if($data['log'] == true){
+		}
+		else
+		{
+			$data['isicart'] = 0;
+		}
+		$this->load->view('Customer/searchFilter.php',$data);
+		
+	}
+	
 	public function searchProdukByMerk()
 	{
 		//Variabel milik daniel
@@ -45,6 +79,7 @@ class Chome extends CI_Controller {
 		$data['kategori'] = $this->rincian_produk_model->getKategori();
 		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
+		$data['promo']=$this->rincian_produk_model->getPromo();
 		
 		if($data['log'] == true){
 		}
@@ -67,7 +102,7 @@ class Chome extends CI_Controller {
 		$data['kategori'] = $this->rincian_produk_model->getKategori();
 		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
-		
+		$data['promo']=$this->rincian_produk_model->getPromo();
 		if($data['log'] == true){
 		}
 		else
@@ -102,6 +137,7 @@ class Chome extends CI_Controller {
 		$temp = $this->rincian_produk_model->getKategori();
 		$data['kategori'] = $this->rincian_produk_model->getTotalItem($temp);
 		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$data['promo']=$this->rincian_produk_model->getPromo();
 		
 		if($data['log'] == true){
 		}

@@ -6,6 +6,33 @@ class Rincian_produk_model extends CI_Model {
 		parent::__construct();
 	}
 	
+	function getPromo()
+	{
+		return $this->db->query("SELECT * FROM PROMOSI WHERE IDHPROMOSI IN (SELECT IDHPROMOSI FROM HPROMOSI WHERE `TGL_AKHIR_PROMOSI` < CURDATE());")->result();
+		
+	}	
+	
+	function getPromoById($id)
+	{
+		return $this->db->query("SELECT * FROM PROMOSI WHERE IDHPROMOSI IN (SELECT IDHPROMOSI FROM HPROMOSI WHERE `TGL_AKHIR_PROMOSI` < CURDATE()) and IDHPROMOSI ='".$id."'" )->result();
+		
+		
+	}
+	
+	function getProdukByPromo($promo)
+	{
+		$hasil = array();
+		foreach($promo as $p)
+		{
+			$this->db->where('ID_PRODUK',$p->ID_PRODUK);
+			$obj = $this->db->get('produk')->row();
+			//$temp = (object) array('')
+			array_push($hasil,$obj);
+		}
+		return $hasil;
+		
+	}
+	
 	function getKategoriProduk($id)
 	{
 		$this->db->where('ID_PRODUK',$id);

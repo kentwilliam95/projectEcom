@@ -282,70 +282,107 @@
                 </div>
 
                 <div class="col-md-9">
-
-                    <div class="row" id="productMain">
-						<div class="col-sm-6">
-                            <div id="mainImage">
-                                <img style="width:100%; " src="<?php echo base_url(); ?>Produk/<?php echo $gambar[0]->NAMA_GAMBAR.$gambar[0]->EXTENSI; ?>" class="img-responsive">
+					<?php foreach ($promo as $p) {?>
+					
+						<?php $diskon=0; $found = false;?>
+						<?php foreach ($promo as $p) {?>
+								<?php if($p->ID_PRODUK==$hasil->ID_PRODUK){ $found = true; $diskon =$p->DISKON_PROMOSI; break;} ?>
+						<?php } ?>
+					<?php } ?>
+					<?php if($found) { ?>
+						<div class="row" id="productMain">
+							<div class="col-sm-6">
+								<div id="mainImage">
+									<img style="width:100%; " src="<?php echo base_url(); ?>Produk/<?php echo $gambar[0]->NAMA_GAMBAR.$gambar[0]->EXTENSI; ?>" class="img-responsive">
+								</div>
+								
+							<div class="ribbon sale">
+                                <div class="theribbon">SALE</div>
+                                <div class="ribbon-background"></div>
                             </div>
+                            <!-- /.ribbon -->
+							</div>		 
+							
+							<div class="col-sm-6">
+								<div class="box">
+									<h1 class="text-center"><?php echo $hasil->NAMA_PRODUK; ?></h1>
+									<p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material & care and sizing</a>
+									</p>
+									<p class="price"><del><?php echo formatRp($hasil->HARGA_JUAL); ?></del> <?php echo formatRp($hasil->HARGA_JUAL-($hasil->HARGA_JUAL*$diskon /100)); ?></p>
 
-                        </div>		 
-                        
-                        <div class="col-sm-6">
-                            <div class="box">
-                                <h1 class="text-center"><?php echo $hasil->NAMA_PRODUK; ?></h1>
-                                <p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material & care and sizing</a>
-                                </p>
-                                <p class="price"><?php echo formatRp($hasil->HARGA_JUAL);?></p>
+									<p class="text-center buttons">
+									   <form  style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/basket'); ?>">
+											<input type="hidden" name="nama_produk" value="<?php echo $hasil->NAMA_PRODUK; ?>" />
+											<button class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+										</form>
+										
+										<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
+											<input type="hidden" name="id_produk" value="<?php echo $hasil->ID_PRODUK; ?>" />
+											<button class="btn btn-primary">Add to Wishlist</button>
+										</form>
+									</p>
 
-                                <p class="text-center buttons">
-                                   <form  style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/basket'); ?>">
-										<input type="hidden" name="nama_produk" value="<?php echo $hasil->NAMA_PRODUK; ?>" />
-										<button class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
-									</form>
+
+								</div>
 									
-									<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
-										<input type="hidden" name="id_produk" value="<?php echo $hasil->ID_PRODUK; ?>" />
-										<button class="btn btn-primary">Add to Wishlist</button>
-									</form>
-                                </p>
+								<div class="row" id="thumbs">
+									<?php foreach($gambar as $g){ ?> 
+									 <div class="col-xs-4">
+										<a href="<?php echo base_url(); ?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" class="thumb">
+											<img src="<?php echo base_url(); ?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive">
+										</a>
+									</div>
+									<?php }?>
+								</div>
+							</div>
+						</div>
+					<?php } else { ?>
+						<div class="row" id="productMain">
+							<div class="col-sm-6">
+								<div id="mainImage">
+									<img style="width:100%; " src="<?php echo base_url(); ?>Produk/<?php echo $gambar[0]->NAMA_GAMBAR.$gambar[0]->EXTENSI; ?>" class="img-responsive">
+								</div>
+
+							</div>		 
+							
+							<div class="col-sm-6">
+								<div class="box">
+									<h1 class="text-center"><?php echo $hasil->NAMA_PRODUK; ?></h1>
+									<p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material & care and sizing</a>
+									</p>
+									<p class="price"><?php echo formatRp($hasil->HARGA_JUAL);?></p>
+
+									<p class="text-center buttons">
+									   <form  style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/basket'); ?>">
+											<input type="hidden" name="nama_produk" value="<?php echo $hasil->NAMA_PRODUK; ?>" />
+											<button class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+										</form>
+										
+										<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
+											<input type="hidden" name="id_produk" value="<?php echo $hasil->ID_PRODUK; ?>" />
+											<button class="btn btn-primary">Add to Wishlist</button>
+										</form>
+									</p>
 
 
-                            </div>
-								
-                            <div class="row" id="thumbs">
-								<?php foreach($gambar as $g){ ?> 
-								 <div class="col-xs-4">
-                                    <a href="<?php echo base_url(); ?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" class="thumb">
-                                        <img src="<?php echo base_url(); ?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive">
-                                    </a>
-                                </div>
-								<?php }?>
-								<!--
-                                <div class="col-xs-4">
-                                    <a href="<?php echo base_url(); ?>Produk/detailbig1.jpg" class="thumb">
-                                        <img src="<?php echo base_url(); ?>Produk/detailsquare.jpg" alt="" class="img-responsive">
-                                    </a>
-                                </div>
-								
-                                <div class="col-xs-4">
-                                    <a href="<?php echo base_url(); ?>Produk/blog-avatar.jpg" class="thumb">
-                                        <img src="<?php echo base_url(); ?>Produk/getinspired1.jpg" alt="" class="img-responsive">
-                                    </a>
-                                </div>
-								
-                                <div class="col-xs-4">
-                                    <a href="img/detailbig3.jpg" class="thumb">
-                                        <img src="img/detailsquare3.jpg" alt="" class="img-responsive">
-                                    </a>
-                                </div>
-								-->
-                            </div>
-                        </div>
-
-                    </div>
-
-
+								</div>
+									
+								<div class="row" id="thumbs">
+									<?php foreach($gambar as $g){ ?> 
+									 <div class="col-xs-4">
+										<a href="<?php echo base_url(); ?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" class="thumb">
+											<img src="<?php echo base_url(); ?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive">
+										</a>
+									</div>
+									<?php }?>
+								</div>
+							</div>
+						</div>
+					
+					
+					<?php } ?>
+					
+					
                     <div class="box" id="details">
                         <p>
                            

@@ -284,67 +284,141 @@
 						<!-- Tampilkan produk -->
 						<?php $counter=0;?>
 						<?php foreach($hasil as $h){ ?>
-							
-							<div class="col-md-3 col-sm-4">
-								<div class="product">
-									<div class="flip-container">
-										<div class="flipper">
-											<div class="front">
-												<a href="">
-													<?php $ctr=0;?>
-													<?php foreach($gambar as $g){?>
-														<?php if($ctr==$counter) {?>
-															<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
-														<?php	} ?>
-														<?php $ctr++;?>
-													<?php } ?>
-												</a>
-											</div>
-											<div class="back">
-												<a href="">
-													<?php $ctr=0;?>
-													<?php foreach($gambar as $g){?>
-														<?php if($ctr==$counter) {?>
-															<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
-														<?php	} ?>
-														<?php $ctr++;?>
-													<?php } ?>
-												</a>
+							<?php $diskon=0; $found = false;?>
+							<?php foreach ($promo as $p) {?>
+								<?php if($p->ID_PRODUK==$h->ID_PRODUK){ $found = true; $diskon =$p->DISKON_PROMOSI; break;} ?>
+							<?php } ?>
+							<!-- JIKA DISKON -->
+							<?php if($found) { ?>
+								<div class="col-md-3 col-sm-4">
+									<div class="product">
+										<div class="flip-container">
+											<div class="flipper">
+												<div class="front">
+													<a href="">
+														<?php $ctr=0;?>
+														<?php foreach($gambar as $g){?>
+															<?php if($ctr==$counter) {?>
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+															<?php	} ?>
+															<?php $ctr++;?>
+														<?php } ?>
+													</a>
+												</div>
+												<div class="back">
+													<a href="">
+														<?php $ctr=0;?>
+														<?php foreach($gambar as $g){?>
+															<?php if($ctr==$counter) {?>
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+															<?php	} ?>
+															<?php $ctr++;?>
+														<?php } ?>
+													</a>
+												</div>
 											</div>
 										</div>
-									</div>
-									<a href="" class="invisible">
-										<?php $ctr=0;?>
-										<?php foreach($gambar as $g){?>
-											<?php if($ctr==$counter) {?>
-												<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
-											<?php	} ?>
-											<?php $ctr++;?>
-										<?php } ?>
-									</a>
-									<div class="text">
-										<h3><a href="" id="<?php echo $h->ID_PRODUK; ?>" class="detailBarang"><?php echo $h->NAMA_PRODUK; ?></a></h3>
-										<p class="price"><?php echo formatRp($h->HARGA_JUAL); ?></p>
-										<p class="buttons">
-											
+										<a href="" class="invisible">
+											<?php $ctr=0;?>
+											<?php foreach($gambar as $g){?>
+												<?php if($ctr==$counter) {?>
+													<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+												<?php	} ?>
+												<?php $ctr++;?>
+											<?php } ?>
+										</a>
+										<div class="text">
+											<h3><a href="" id="<?php echo $h->ID_PRODUK; ?>" class="detailBarang"><?php echo $h->NAMA_PRODUK; ?></a></h3>
+											<p class="price"><del><?php echo formatRp($h->HARGA_JUAL); ?></del> <?php echo formatRp($h->HARGA_JUAL-($h->HARGA_JUAL*$diskon /100)); ?></p>
+											<p class="buttons">
 												
-												<a href="" id="<?php echo $h->ID_PRODUK; ?>"class="btn btn-default detailBarang">View detail</a>
-											
-											<form  style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/basket'); ?>">
-												<input type="hidden" name="nama_produk" value="<?php echo $h->NAMA_PRODUK; ?>" />
-												<button class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
-											</form>
-											
-											<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
-												<input type="hidden" name="id_produk" value="<?php echo $h->ID_PRODUK; ?>" />
-												<button class="btn btn-primary" name='add'>Add to Wishlist</button>
-											</form>
-										</p>
+													
+													<a href="" id="<?php echo $h->ID_PRODUK; ?>"class="btn btn-default detailBarang">View detail</a>
+												
+												<form  style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/basket'); ?>">
+													<input type="hidden" name="nama_produk" value="<?php echo $h->NAMA_PRODUK; ?>" />
+													<button class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+												</form>
+												
+												<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
+													<input type="hidden" name="id_produk" value="<?php echo $h->ID_PRODUK; ?>" />
+													<button class="btn btn-primary" name='add'>Add to Wishlist</button>
+												</form>
+											</p>
+										</div>
+										<!-- /.text -->
+										
+										<div class="ribbon sale">
+											<div class="theribbon">SALE</div>
+											<div class="ribbon-background"></div>
+										</div>
+										<!-- /.ribbon -->
 									</div>
-									<!-- /.text -->
+									<!-- /.product -->
 								</div>
-								<!-- /.product -->
-							</div>
+								<!-- JIKA TIDAK DISKON -->
+							<?php } else { ?>
+								<div class="col-md-3 col-sm-4">
+									<div class="product">
+										<div class="flip-container">
+											<div class="flipper">
+												<div class="front">
+													<a href="">
+														<?php $ctr=0;?>
+														<?php foreach($gambar as $g){?>
+															<?php if($ctr==$counter) {?>
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+															<?php	} ?>
+															<?php $ctr++;?>
+														<?php } ?>
+													</a>
+												</div>
+												<div class="back">
+													<a href="">
+														<?php $ctr=0;?>
+														<?php foreach($gambar as $g){?>
+															<?php if($ctr==$counter) {?>
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+															<?php	} ?>
+															<?php $ctr++;?>
+														<?php } ?>
+													</a>
+												</div>
+											</div>
+										</div>
+										<a href="" class="invisible">
+											<?php $ctr=0;?>
+											<?php foreach($gambar as $g){?>
+												<?php if($ctr==$counter) {?>
+													<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+												<?php	} ?>
+												<?php $ctr++;?>
+											<?php } ?>
+										</a>
+										<div class="text">
+											<h3><a href="" id="<?php echo $h->ID_PRODUK; ?>" class="detailBarang"><?php echo $h->NAMA_PRODUK; ?></a></h3>
+											<p class="price"><?php echo formatRp($h->HARGA_JUAL); ?></p>
+											<p class="buttons">
+												
+													
+													<a href="" id="<?php echo $h->ID_PRODUK; ?>"class="btn btn-default detailBarang">View Detail</a>
+												
+												<form  style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/basket'); ?>">
+													<input type="hidden" name="nama_produk" value="<?php echo $h->NAMA_PRODUK; ?>" />
+													<button class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+												</form>
+												
+												<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
+													<input type="hidden" name="id_produk" value="<?php echo $h->ID_PRODUK; ?>" />
+													<button class="btn btn-primary" name='add'>Add to Wishlist</button>
+												</form>
+											</p>
+										</div>
+										<!-- /.text -->
+									</div>
+									<!-- /.product -->
+								</div>
+							<?php } ?>
 						<?php $counter++; } ?>
 						
                         
