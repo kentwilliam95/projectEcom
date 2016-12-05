@@ -40,7 +40,18 @@
     <script src="<?php echo base_url();?>assets/js/respond.min.js"></script>
 
     <link rel="shortcut icon" href="<?php echo base_url();?>favicon.png">
+	
+	<style>
+	.img-produk {
+    height:200px;
+    width:100%;
+    margin-top: 30px;
+    
+    
+    
+	}
 
+	</style>
 
 </head>
 
@@ -290,7 +301,7 @@
 							<?php } ?>
 							<!-- JIKA DISKON -->
 							<?php if($found) { ?>
-								<div class="col-md-3 col-sm-4">
+								<div class="col-md-3 col-sm-4" >
 									<div class="product">
 										<div class="flip-container">
 											<div class="flipper">
@@ -299,7 +310,7 @@
 														<?php $ctr=0;?>
 														<?php foreach($gambar as $g){?>
 															<?php if($ctr==$counter) {?>
-																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
 															<?php	} ?>
 															<?php $ctr++;?>
 														<?php } ?>
@@ -310,7 +321,7 @@
 														<?php $ctr=0;?>
 														<?php foreach($gambar as $g){?>
 															<?php if($ctr==$counter) {?>
-																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
 															<?php	} ?>
 															<?php $ctr++;?>
 														<?php } ?>
@@ -322,7 +333,7 @@
 											<?php $ctr=0;?>
 											<?php foreach($gambar as $g){?>
 												<?php if($ctr==$counter) {?>
-													<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+													<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
 												<?php	} ?>
 												<?php $ctr++;?>
 											<?php } ?>
@@ -367,7 +378,7 @@
 														<?php $ctr=0;?>
 														<?php foreach($gambar as $g){?>
 															<?php if($ctr==$counter) {?>
-																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
 															<?php	} ?>
 															<?php $ctr++;?>
 														<?php } ?>
@@ -378,7 +389,7 @@
 														<?php $ctr=0;?>
 														<?php foreach($gambar as $g){?>
 															<?php if($ctr==$counter) {?>
-																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
 															<?php	} ?>
 															<?php $ctr++;?>
 														<?php } ?>
@@ -390,7 +401,7 @@
 											<?php $ctr=0;?>
 											<?php foreach($gambar as $g){?>
 												<?php if($ctr==$counter) {?>
-													<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang">
+													<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
 												<?php	} ?>
 												<?php $ctr++;?>
 											<?php } ?>
