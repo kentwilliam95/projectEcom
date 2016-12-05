@@ -110,7 +110,7 @@
 							{	
 						?>
 							<td class="centered">
-								<img class="gambar img-thumbnail center-block" src="
+								<img class="gambar img-thumbnail center-block" style="width:150px;height:150px"src="
 									<?php echo $b_url ?>
 									Produk/
 									<?php echo $hasil[$i][0][$j]?>" 
