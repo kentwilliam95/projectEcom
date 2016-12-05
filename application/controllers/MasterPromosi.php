@@ -67,12 +67,30 @@ class MasterPromosi extends CI_Controller
 	
 	function ListPromosi()
     {
-        $HasilVendor=$this->ModelPromosi->getData("promosi",null);
+        $HasilVendor=$this->ModelPromosi->getData("hpromosi",null);
 		$data["promosi"] = Array();
-		$hasil=array();$temp = array();
+		$hasil=array();
+		$temp = array();
+		$diskon = 0;
+			
 		foreach($HasilVendor as $row)
 		{
-			$temp = Array($row->ID_PROMOSI,$row->ID_PRODUKS,$row->NAMA_PROMOSI,$row->TGL_MULAI_PROMOSI,$row->TGL_AKHIR_PROMOSI,$row->DISKON_PROMOSI,$row->STATUS_PROMOSI,$row->DESKRIPSI_PROMOSI,"<a href='".site_url('MasterPromosi/UpdateForm/'.$row->ID_PROMOSI)."'>Update</a>|<a href='".site_url('MasterPromosi/DeletePromosi/'.$row->ID_PROMOSI)."'>Delete</a>");
+			$gabung = "";
+			$promosi_produk = $this->ModelPromosi->getDataWhere("promosi",Array("IDHPROMOSI" => $row->IDHPROMOSI));
+			foreach($promosi_produk as $a)
+			{
+				$diskon = $a->DISKON_PROMOSI;
+				if($gabung == "")
+				{
+					$gabung = $gabung.$a->ID_PRODUK;
+				}
+				else
+				{
+					$gabung = $gabung."-".$a->ID_PRODUK;
+				}
+			}
+			
+			$temp = Array($row->IDHPROMOSI,$gabung,$row->NAMA_PROMOSI,$row->TGL_MULAI_PROMOSI,$row->TGL_AKHIR_PROMOSI,$diskon,$row->STATUS,$row->DESKRIPSI_PROMO,"<a href='".site_url('MasterPromosi/UpdateForm/'.$row->IDHPROMOSI)."'>Update</a>|<a href='".site_url('MasterPromosi/DeletePromosi/'.$row->IDHPROMOSI)."'>Delete</a>");
 			Array_push($hasil,$temp);
 			$temp = Array();
 		}
@@ -85,30 +103,30 @@ class MasterPromosi extends CI_Controller
 	 public function do_upload()
      {
 			$fakta = $this->GetInputData();
-			$gabung = "";
+			
+            $value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"]);
+            $this->ModelPromosi->Insert("hpromosi",$value); 
 			
 			foreach($fakta["Id_pro"] as $a)
 			{
-				if($gabung == "")
-				{
-					$gabung = $gabung.$a;
-				}
-				else
-				{
-					$gabung = $gabung."-".$a;
-				}
+				$value2 = Array("ID_DPROMOSI"=>$this->getAutogenPromosi(),"ID_PRODUK"=>$a,"IDHPROMOSI"=>$fakta["Id"],"DISKON_PROMOSI"=>$fakta["Diskon"]);
+				$this->ModelPromosi->Insert("promosi",$value2);
 			}
-			
-            $value = Array("ID_PROMOSI"=>$fakta["Id"],"ID_PRODUKS"=>$gabung,"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"DISKON_PROMOSI"=>$fakta["Diskon"],"STATUS_PROMOSI"=>1,"DESKRIPSI_PROMOSI"=>$fakta["Deskrip"]);
-            $this->ModelPromosi->Insert("promosi",$value); 
 			
             redirect("MasterPromosi/index");
       }
 	
 	function getAutogenProduk()
     {
-        $nomor = $this->ModelPromosi->Autogen("SELECT (max(SUBSTRING(`ID_PROMOSI`,4))+1)as nomor from promosi")[0]->nomor;
-        $Autogen = "PR".sprintf("%04d",$nomor);
+        $nomor = $this->ModelPromosi->Autogen("SELECT (max(SUBSTRING(`IDHPROMOSI`,4))+1)as nomor from hpromosi")[0]->nomor;
+        $Autogen = "HPR".sprintf("%04d",$nomor);
+        return $Autogen;
+    }
+
+	function getAutogenPromosi()
+    {
+        $nomor = $this->ModelPromosi->Autogen("SELECT (max(SUBSTRING(`ID_DPROMOSI`,4))+1)as nomor from promosi")[0]->nomor;
+        $Autogen = "DPR".sprintf("%04d",$nomor);
         return $Autogen;
     }
 	
@@ -129,7 +147,7 @@ class MasterPromosi extends CI_Controller
 		$data["gambar"] = array();
 		$data["Autogen"] = $this->getAutogenProduk(); 
 		$data["produkx"] = $this->ModelPromosi->getData("produk");
-		$data["promo"] = $this->ModelPromosi->getData("promosi");
+		$data["promo"] = $this->ModelPromosi->getData("hpromosi");
 		
 		$produk = $this->ModelPromosi->getData2("produk");
         $data["hasil"] = array();
@@ -171,14 +189,17 @@ class MasterPromosi extends CI_Controller
             }
             $a = array($q,$b,$c);
             array_push($data["hasil"],$a);
-			
         }
 		
+		$data["potongID"] = $this->ModelPromosi->getDataWhere("promosi",Array("IDHPROMOSI" => $value));
+		
 		//print_r($data["promo"][0]->ID_PRODUKS);
-		$data["potongID"] = explode("-",$data["promo"][0]->ID_PRODUKS);
+		//$data["potongID"] = explode("-",$data["promo"][0]->ID_PRODUKS);
 		$data['b_url'] = base_url();
-        $promosi = $this->ModelPromosi->getDataWhere("promosi",Array("ID_PROMOSI" => $value));
+        $promosi = $this->ModelPromosi->getDataWhere("hpromosi",Array("IDHPROMOSI" => $value));
         $data["detail"] = $promosi[0];
+		$disc = $this->ModelPromosi->getDataWhere("promosi",Array("IDHPROMOSI" => $value));
+		$data["detaildisc"] = $disc[0];
         $this->load->view("HeaderMaster");
         $this->load->view("updateform/UpdateFormPromosi",$data);
     }
@@ -186,30 +207,25 @@ class MasterPromosi extends CI_Controller
 	function UpdatePromosi()
     {
         $fakta = $this->GetInputData();
-		$gabung = "";
 			
+        $value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"]);
+        $this->ModelPromosi->UpdateData("hpromosi",$value,Array("IDHPROMOSI"=>$fakta["Id"]));
+			
+		$this->ModelPromosi->deleteData("promosi",array("IDHPROMOSI" => $fakta["Id"]));	
 		foreach($fakta["Id_pro"] as $a)
 		{
-			if($gabung == "")
-			{
-				$gabung = $gabung.$a;
-			}
-			else
-			{
-				$gabung = $gabung."-".$a;
-			}
+			$value2 = Array("ID_DPROMOSI"=>$this->getAutogenPromosi(),"ID_PRODUK"=>$a,"IDHPROMOSI"=>$fakta["Id"],"DISKON_PROMOSI"=>$fakta["Diskon"]);
+			$this->ModelPromosi->Insert("promosi",$value2);
 		}
-			
-       $value = Array("ID_PROMOSI"=>$fakta["Id"],"ID_PRODUKS"=>$gabung,"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"DISKON_PROMOSI"=>$fakta["Diskon"],"DESKRIPSI_PROMOSI"=>$fakta["Deskrip"]);
-       $this->ModelPromosi->UpdateData("promosi",$value,Array("ID_PROMOSI"=>$fakta["Id"]));
 	   
-	   redirect("MasterPromosi/ListPromosi");
+		redirect("MasterPromosi/ListPromosi");
     }
 	
 	function DeletePromosi($value)
     {
-        $data = array("ID_PROMOSI" => $value);
-        $this->ModelPromosi->deleteData("promosi",$data);
+        $data = array("IDHPROMOSI" => $value);
+		$this->ModelPromosi->deleteData("promosi",$data);
+        $this->ModelPromosi->deleteData("hpromosi",$data);
 		
 		redirect("MasterPromosi/ListPromosi");
     }

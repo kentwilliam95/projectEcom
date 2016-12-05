@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">ID Promosi: </label>
                     <div class="col-sm-7">
-                        <input type="text" name="Id" value="<?php echo $detail->ID_PROMOSI?>" class="form-control" disabled/>
+                        <input type="text" name="Id" value="<?php echo $detail->IDHPROMOSI?>" class="form-control" disabled/>
                     </div>         
                 </div>
 				<div class="form-group">
@@ -82,18 +82,18 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3">Nilai Diskon: </label>
                     <div class="col-sm-7">
-                        <input type="text" name="Diskon" value="<?php echo $detail->DISKON_PROMOSI?>" class="form-control"/>
+                        <input type="text" name="Diskon" value="<?php echo $detaildisc->DISKON_PROMOSI?>" class="form-control"/>
                     </div>         
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-3">Deskripsi Promosi: </label>
                     <div class="col-sm-7">
-                        <textarea   name="Deskrip" class="form-control"><?php echo $detail->DESKRIPSI_PROMOSI?></textarea>
+                        <textarea   name="Deskrip" class="form-control"><?php echo $detail->DESKRIPSI_PROMO?></textarea>
                     </div>         
                 </div>
                 </div>
 				
-				<input type="hidden" value="<?php echo $detail->ID_PROMOSI?>" name="Idh">
+				<input type="hidden" value="<?php echo $detail->IDHPROMOSI?>" name="Idh">
                 <div class="col-sm-3">
                     <input type="submit" value="Update Promo" class="btn btn-primary" style="width:100%;height:300px;"/>
                 </div>     
@@ -125,7 +125,7 @@
 									?>
 										<td class="text-center"><label><input type="checkbox" style="width:18px;height:18px" name="Id_pro[]" value="<?php echo $hasil[$i][2][$k] ?>" 
 										<?php foreach($potongID as $z)
-											  { echo ($hasil[$i][2][$k] == $z ? 'checked' : '');
+											  { echo ($hasil[$i][2][$k] == $z->ID_PRODUK ? 'checked' : '');
 												}
 										?> >
 										</label><br><?php echo $hasil[$i][1][$k] ?></td>
