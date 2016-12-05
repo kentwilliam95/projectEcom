@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2016 at 06:01 AM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Generation Time: Dec 05, 2016 at 03:12 PM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,11 +14,13 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `ecom`
 --
+CREATE DATABASE IF NOT EXISTS `ecom` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `ecom`;
 
 -- --------------------------------------------------------
 
@@ -26,7 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `customer`
 --
 
-CREATE TABLE IF NOT EXISTS `customer` (
+CREATE TABLE `customer` (
   `ID_CUSTOMER` varchar(10) NOT NULL,
   `NAMA_CUSTOMER` varchar(20) DEFAULT NULL,
   `PASSWORD` char(10) DEFAULT NULL,
@@ -61,7 +63,7 @@ INSERT INTO `customer` (`ID_CUSTOMER`, `NAMA_CUSTOMER`, `PASSWORD`, `ALAMAT_CUST
 -- Table structure for table `djual`
 --
 
-CREATE TABLE IF NOT EXISTS `djual` (
+CREATE TABLE `djual` (
   `IDDJUAL` varchar(10) NOT NULL,
   `ID_HJUAL` varchar(10) DEFAULT NULL,
   `ID_PRODUK` varchar(10) DEFAULT NULL,
@@ -77,12 +79,12 @@ CREATE TABLE IF NOT EXISTS `djual` (
 -- Table structure for table `gambar`
 --
 
-CREATE TABLE IF NOT EXISTS `gambar` (
-`ID_GAMBAR` int(11) NOT NULL,
+CREATE TABLE `gambar` (
+  `ID_GAMBAR` int(11) NOT NULL,
   `ID_PRODUK` varchar(10) DEFAULT NULL,
   `NAMA_GAMBAR` varchar(200) DEFAULT NULL,
   `EXTENSI` varchar(5) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `gambar`
@@ -165,7 +167,7 @@ INSERT INTO `gambar` (`ID_GAMBAR`, `ID_PRODUK`, `NAMA_GAMBAR`, `EXTENSI`) VALUES
 -- Table structure for table `hjual`
 --
 
-CREATE TABLE IF NOT EXISTS `hjual` (
+CREATE TABLE `hjual` (
   `ID_HJUAL` varchar(10) NOT NULL,
   `TOTAL` float DEFAULT NULL,
   `NO_SURATJALAN` varchar(12) DEFAULT NULL,
@@ -178,21 +180,26 @@ CREATE TABLE IF NOT EXISTS `hjual` (
 -- Table structure for table `hpromosi`
 --
 
-CREATE TABLE IF NOT EXISTS `hpromosi` (
+CREATE TABLE `hpromosi` (
   `IDHPROMOSI` varchar(10) NOT NULL,
   `NAMA_PROMOSI` varchar(100) DEFAULT NULL,
   `TGL_MULAI_PROMOSI` date DEFAULT NULL,
   `TGL_AKHIR_PROMOSI` date DEFAULT NULL,
   `STATUS` varchar(1) DEFAULT NULL,
-  `DESKRIPSI_PROMO` char(10) DEFAULT NULL
+  `DESKRIPSI_PROMO` char(10) DEFAULT NULL,
+  `GAMBARPROMO` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `hpromosi`
 --
 
-INSERT INTO `hpromosi` (`IDHPROMOSI`, `NAMA_PROMOSI`, `TGL_MULAI_PROMOSI`, `TGL_AKHIR_PROMOSI`, `STATUS`, `DESKRIPSI_PROMO`) VALUES
-('HPR0001', 'golo2', '2016-11-30', '2016-12-03', 'Y', 'tatata');
+INSERT INTO `hpromosi` (`IDHPROMOSI`, `NAMA_PROMOSI`, `TGL_MULAI_PROMOSI`, `TGL_AKHIR_PROMOSI`, `STATUS`, `DESKRIPSI_PROMO`, `GAMBARPROMO`) VALUES
+('HPR0001', 'golo2', '2016-11-30', '2016-12-03', 'Y', 'tatata', 'HPR0001.png'),
+('HPR0002', 'promo spesial', '0000-00-00', '0000-00-00', 'Y', '12345', 'HPR0002.jpg'),
+('HPR0003', 'promosi BBanzai', '0000-00-00', '0000-00-00', 'Y', '', 'HPR0003.jpg'),
+('HPR0004', 'asdasd', '0000-00-00', '0000-00-00', 'Y', '', 'HPR0004.jpg'),
+('HPR0005', 'kakakaka', '0000-00-00', '0000-00-00', 'Y', '123123123', 'HPR0005.jpg');
 
 -- --------------------------------------------------------
 
@@ -200,7 +207,7 @@ INSERT INTO `hpromosi` (`IDHPROMOSI`, `NAMA_PROMOSI`, `TGL_MULAI_PROMOSI`, `TGL_
 -- Table structure for table `pegawai`
 --
 
-CREATE TABLE IF NOT EXISTS `pegawai` (
+CREATE TABLE `pegawai` (
   `ID_PEGAWAI` varchar(10) NOT NULL,
   `NAMA_PEGAWAI` varchar(20) DEFAULT NULL,
   `PASSWORD` char(10) DEFAULT NULL,
@@ -226,7 +233,7 @@ INSERT INTO `pegawai` (`ID_PEGAWAI`, `NAMA_PEGAWAI`, `PASSWORD`, `TANGGAL_LAHIR`
 -- Table structure for table `produk`
 --
 
-CREATE TABLE IF NOT EXISTS `produk` (
+CREATE TABLE `produk` (
   `ID_PRODUK` varchar(10) NOT NULL,
   `NAMA_PRODUK` text,
   `HARGA_JUAL` float DEFAULT NULL,
@@ -270,7 +277,7 @@ INSERT INTO `produk` (`ID_PRODUK`, `NAMA_PRODUK`, `HARGA_JUAL`, `MEREK_PRODUK`, 
 -- Table structure for table `promosi`
 --
 
-CREATE TABLE IF NOT EXISTS `promosi` (
+CREATE TABLE `promosi` (
   `ID_DPROMOSI` varchar(11) NOT NULL,
   `ID_PRODUK` varchar(10) DEFAULT NULL,
   `IDHPROMOSI` varchar(10) DEFAULT NULL,
@@ -282,9 +289,22 @@ CREATE TABLE IF NOT EXISTS `promosi` (
 --
 
 INSERT INTO `promosi` (`ID_DPROMOSI`, `ID_PRODUK`, `IDHPROMOSI`, `DISKON_PROMOSI`) VALUES
-('DPR0003', 'PRO0008', 'HPR0001', 20),
-('DPR0004', 'PRO0012', 'HPR0001', 20),
-('DPR0005', 'PRO0014', 'HPR0001', 20);
+('DPR0011', 'PRO0001', 'HPR0004', 10),
+('DPR0012', 'PRO0002', 'HPR0004', 10),
+('DPR0013', 'PRO0006', 'HPR0004', 10),
+('DPR0014', 'PRO0007', 'HPR0004', 10),
+('DPR0015', 'PRO0008', 'HPR0004', 10),
+('DPR0020', 'PRO0004', 'HPR0002', 25),
+('DPR0021', 'PRO0008', 'HPR0001', 20),
+('DPR0022', 'PRO0012', 'HPR0001', 20),
+('DPR0023', 'PRO0014', 'HPR0001', 20),
+('DPR0024', 'PRO0001', 'HPR0003', 20),
+('DPR0025', 'PRO0002', 'HPR0003', 20),
+('DPR0026', 'PRO0006', 'HPR0003', 20),
+('DPR0027', 'PRO0007', 'HPR0003', 20),
+('DPR0028', 'PRO0002', 'HPR0005', 12),
+('DPR0029', 'PRO0003', 'HPR0005', 12),
+('DPR0030', 'PRO0004', 'HPR0005', 12);
 
 -- --------------------------------------------------------
 
@@ -292,7 +312,7 @@ INSERT INTO `promosi` (`ID_DPROMOSI`, `ID_PRODUK`, `IDHPROMOSI`, `DISKON_PROMOSI
 -- Table structure for table `rincian_produk`
 --
 
-CREATE TABLE IF NOT EXISTS `rincian_produk` (
+CREATE TABLE `rincian_produk` (
   `ID_RINCIAN` varchar(10) NOT NULL,
   `ID_PRODUK` varchar(10) DEFAULT NULL,
   `JENIS_PRODUK` varchar(10) DEFAULT NULL,
@@ -332,7 +352,7 @@ INSERT INTO `rincian_produk` (`ID_RINCIAN`, `ID_PRODUK`, `JENIS_PRODUK`, `KATEGO
 -- Table structure for table `shoppingcart`
 --
 
-CREATE TABLE IF NOT EXISTS `shoppingcart` (
+CREATE TABLE `shoppingcart` (
   `ID` varchar(10) NOT NULL,
   `ID_PRODUK` varchar(10) DEFAULT NULL,
   `ID_CUSTOMER` varchar(10) DEFAULT NULL,
@@ -345,7 +365,7 @@ CREATE TABLE IF NOT EXISTS `shoppingcart` (
 -- Table structure for table `voucher`
 --
 
-CREATE TABLE IF NOT EXISTS `voucher` (
+CREATE TABLE `voucher` (
   `ID_VOUCHER` varchar(10) NOT NULL,
   `NAMA_VOUCHER` varchar(25) DEFAULT NULL,
   `POTONGAN_HARGA` int(11) DEFAULT NULL,
@@ -359,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `voucher` (
 -- Table structure for table `wishlist`
 --
 
-CREATE TABLE IF NOT EXISTS `wishlist` (
+CREATE TABLE `wishlist` (
   `ID_PRODUK` varchar(10) DEFAULT NULL,
   `ID_CUSTOMER` varchar(10) DEFAULT NULL,
   `ID_WISHLIST` varchar(10) DEFAULT NULL,
@@ -385,83 +405,79 @@ INSERT INTO `wishlist` (`ID_PRODUK`, `ID_CUSTOMER`, `ID_WISHLIST`, `SESSIONID`) 
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
- ADD PRIMARY KEY (`ID_CUSTOMER`);
+  ADD PRIMARY KEY (`ID_CUSTOMER`);
 
 --
 -- Indexes for table `djual`
 --
 ALTER TABLE `djual`
- ADD PRIMARY KEY (`IDDJUAL`), ADD KEY `FK_RELATIONSHIP_5` (`ID_PRODUK`), ADD KEY `FK_RELATIONSHIP_6` (`ID_HJUAL`);
+  ADD PRIMARY KEY (`IDDJUAL`),
+  ADD KEY `FK_RELATIONSHIP_5` (`ID_PRODUK`);
 
 --
 -- Indexes for table `gambar`
 --
 ALTER TABLE `gambar`
- ADD PRIMARY KEY (`ID_GAMBAR`), ADD KEY `FK_RELATIONSHIP_8` (`ID_PRODUK`);
+  ADD PRIMARY KEY (`ID_GAMBAR`),
+  ADD KEY `FK_RELATIONSHIP_8` (`ID_PRODUK`);
 
 --
 -- Indexes for table `hjual`
 --
 ALTER TABLE `hjual`
- ADD PRIMARY KEY (`ID_HJUAL`);
+  ADD PRIMARY KEY (`ID_HJUAL`);
 
 --
 -- Indexes for table `hpromosi`
 --
 ALTER TABLE `hpromosi`
- ADD PRIMARY KEY (`IDHPROMOSI`);
+  ADD PRIMARY KEY (`IDHPROMOSI`);
 
 --
 -- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
- ADD PRIMARY KEY (`ID_PEGAWAI`);
+  ADD PRIMARY KEY (`ID_PEGAWAI`);
 
 --
 -- Indexes for table `produk`
 --
 ALTER TABLE `produk`
- ADD PRIMARY KEY (`ID_PRODUK`);
+  ADD PRIMARY KEY (`ID_PRODUK`);
 
 --
 -- Indexes for table `promosi`
 --
 ALTER TABLE `promosi`
- ADD PRIMARY KEY (`ID_DPROMOSI`), ADD KEY `FK_RELATIONSHIP_10` (`ID_PRODUK`), ADD KEY `FK_RELATIONSHIP_9` (`IDHPROMOSI`);
+  ADD PRIMARY KEY (`ID_DPROMOSI`),
+  ADD KEY `FK_RELATIONSHIP_10` (`ID_PRODUK`);
 
 --
 -- Indexes for table `rincian_produk`
 --
 ALTER TABLE `rincian_produk`
- ADD PRIMARY KEY (`ID_RINCIAN`), ADD KEY `FK_RELATIONSHIP_1` (`ID_PRODUK`);
+  ADD PRIMARY KEY (`ID_RINCIAN`),
+  ADD KEY `FK_RELATIONSHIP_1` (`ID_PRODUK`);
 
 --
 -- Indexes for table `shoppingcart`
 --
 ALTER TABLE `shoppingcart`
- ADD PRIMARY KEY (`ID`), ADD KEY `FK_RELATIONSHIP_4` (`ID_PRODUK`), ADD KEY `FK_RELATIONSHIP_7` (`ID_CUSTOMER`);
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_RELATIONSHIP_4` (`ID_PRODUK`);
 
 --
 -- Indexes for table `voucher`
 --
 ALTER TABLE `voucher`
- ADD PRIMARY KEY (`ID_VOUCHER`);
+  ADD PRIMARY KEY (`ID_VOUCHER`);
 
 --
 -- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
- ADD KEY `FK_RELATIONSHIP_2` (`ID_PRODUK`), ADD KEY `FK_RELATIONSHIP_3` (`ID_CUSTOMER`);
+  ADD KEY `FK_RELATIONSHIP_2` (`ID_PRODUK`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `gambar`
---
-ALTER TABLE `gambar`
-MODIFY `ID_GAMBAR` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
 --
 -- Constraints for dumped tables
 --
@@ -470,41 +486,37 @@ MODIFY `ID_GAMBAR` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
 -- Constraints for table `djual`
 --
 ALTER TABLE `djual`
-ADD CONSTRAINT `FK_RELATIONSHIP_5` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`),
-ADD CONSTRAINT `FK_RELATIONSHIP_6` FOREIGN KEY (`ID_HJUAL`) REFERENCES `hjual` (`ID_HJUAL`);
+  ADD CONSTRAINT `FK_RELATIONSHIP_5` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`);
 
 --
 -- Constraints for table `gambar`
 --
 ALTER TABLE `gambar`
-ADD CONSTRAINT `FK_RELATIONSHIP_8` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`);
+  ADD CONSTRAINT `FK_RELATIONSHIP_8` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`);
 
 --
 -- Constraints for table `promosi`
 --
 ALTER TABLE `promosi`
-ADD CONSTRAINT `FK_RELATIONSHIP_10` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`),
-ADD CONSTRAINT `FK_RELATIONSHIP_9` FOREIGN KEY (`IDHPROMOSI`) REFERENCES `hpromosi` (`IDHPROMOSI`);
+  ADD CONSTRAINT `FK_RELATIONSHIP_10` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`);
 
 --
 -- Constraints for table `rincian_produk`
 --
 ALTER TABLE `rincian_produk`
-ADD CONSTRAINT `FK_RELATIONSHIP_1` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`);
+  ADD CONSTRAINT `FK_RELATIONSHIP_1` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`);
 
 --
 -- Constraints for table `shoppingcart`
 --
 ALTER TABLE `shoppingcart`
-ADD CONSTRAINT `FK_RELATIONSHIP_4` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`),
-ADD CONSTRAINT `FK_RELATIONSHIP_7` FOREIGN KEY (`ID_CUSTOMER`) REFERENCES `customer` (`ID_CUSTOMER`);
+  ADD CONSTRAINT `FK_RELATIONSHIP_4` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`);
 
 --
 -- Constraints for table `wishlist`
 --
 ALTER TABLE `wishlist`
-ADD CONSTRAINT `FK_RELATIONSHIP_2` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`),
-ADD CONSTRAINT `FK_RELATIONSHIP_3` FOREIGN KEY (`ID_CUSTOMER`) REFERENCES `customer` (`ID_CUSTOMER`);
+  ADD CONSTRAINT `FK_RELATIONSHIP_2` FOREIGN KEY (`ID_PRODUK`) REFERENCES `produk` (`ID_PRODUK`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
