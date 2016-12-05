@@ -112,7 +112,7 @@
 							<td class="centered">
 								<img class="gambar img-thumbnail center-block" src="
 									<?php echo $b_url ?>
-									Image/
+									Produk/
 									<?php echo $hasil[$i][0][$j]?>" 
 								nama="<?php echo $hasil[$i][1][$j] ?>""</img>
 							</td>
