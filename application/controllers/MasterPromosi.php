@@ -12,6 +12,7 @@ class MasterPromosi extends CI_Controller
 
 	function index()
 	{
+		$data["msg"] = $this->session->flashdata("item");
 		$data["gambar"] = array();
 		$data["Autogen"] = $this->getAutogenProduk(); 
 		$data["produkx"] = $this->ModelPromosi->getData("produk");
@@ -103,16 +104,32 @@ class MasterPromosi extends CI_Controller
 	 public function do_upload()
      {
 			$fakta = $this->GetInputData();
+            
 			
-            $value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"]);
+			$config['upload_path']          = './Produk/';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 0;
+            $config['max_width']            = 4084;
+            $config['max_height']           = 4084; 
+            $config["file_name"]            = $fakta["Id"];
+            $this->load->library('upload', $config);
+			$msg = array();
+			if($this->upload->do_upload('userfile'))
+			{
+				array_push($msg,"Image Berhasil Di Upload");
+			}
+			else
+			{
+				array_push($msg,"Image Gagal Di upload : ".$this->upload->display_errors()." Silahkan Pergi Ke Update");
+			}
+			$value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"],"GAMBARPROMO"=>$this->upload->data()["file_name"]);
             $this->ModelPromosi->Insert("hpromosi",$value); 
-			
 			foreach($fakta["Id_pro"] as $a)
 			{
 				$value2 = Array("ID_DPROMOSI"=>$this->getAutogenPromosi(),"ID_PRODUK"=>$a,"IDHPROMOSI"=>$fakta["Id"],"DISKON_PROMOSI"=>$fakta["Diskon"]);
 				$this->ModelPromosi->Insert("promosi",$value2);
 			}
-			
+			$this->session->set_flashdata("item",$msg);
             redirect("MasterPromosi/index");
       }
 	
@@ -144,11 +161,11 @@ class MasterPromosi extends CI_Controller
 	  
 	function UpdateForm($value)
     {
+		$data["msg"] = $this->session->flashdata("item");
 		$data["gambar"] = array();
 		$data["Autogen"] = $this->getAutogenProduk(); 
 		$data["produkx"] = $this->ModelPromosi->getData("produk");
 		$data["promo"] = $this->ModelPromosi->getData("hpromosi");
-		
 		$produk = $this->ModelPromosi->getData2("produk");
         $data["hasil"] = array();
         
@@ -198,6 +215,7 @@ class MasterPromosi extends CI_Controller
 		$data['b_url'] = base_url();
         $promosi = $this->ModelPromosi->getDataWhere("hpromosi",Array("IDHPROMOSI" => $value));
         $data["detail"] = $promosi[0];
+		$data["GambarPth"] = $promosi[0]->GAMBARPROMO;
 		$disc = $this->ModelPromosi->getDataWhere("promosi",Array("IDHPROMOSI" => $value));
 		$data["detaildisc"] = $disc[0];
         $this->load->view("HeaderMaster");
@@ -207,17 +225,34 @@ class MasterPromosi extends CI_Controller
 	function UpdatePromosi()
     {
         $fakta = $this->GetInputData();
+		$config['upload_path']          = './Produk/';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 0;
+            $config['max_width']            = 4084;
+            $config['max_height']           = 4084; 
+            $config["file_name"]            = $fakta["Id"];
+			$config["overwrite"]            = true;
+            $this->load->library('upload', $config);
+			$msg = array();
+			if($this->upload->do_upload('userfile'))
+			{
+				array_push($msg,"Image Berhasil Di Upload");
+			}
+			else
+			{
+				array_push($msg,"Image Gagal Di upload : ".$this->upload->display_errors()." Silahkan Pergi Ke Update");
+			}
 			
-        $value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"]);
+		$value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"],"GAMBARPROMO"=>$this->upload->data()["file_name"]);
         $this->ModelPromosi->UpdateData("hpromosi",$value,Array("IDHPROMOSI"=>$fakta["Id"]));
-			
+		
 		$this->ModelPromosi->deleteData("promosi",array("IDHPROMOSI" => $fakta["Id"]));	
 		foreach($fakta["Id_pro"] as $a)
 		{
 			$value2 = Array("ID_DPROMOSI"=>$this->getAutogenPromosi(),"ID_PRODUK"=>$a,"IDHPROMOSI"=>$fakta["Id"],"DISKON_PROMOSI"=>$fakta["Diskon"]);
 			$this->ModelPromosi->Insert("promosi",$value2);
 		}
-	   
+	    $this->session->set_flashdata("item",$msg);
 		redirect("MasterPromosi/ListPromosi");
     }
 	

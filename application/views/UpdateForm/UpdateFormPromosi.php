@@ -10,6 +10,22 @@
                 parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                 return parts.join(".");
             }
+			function readURL(input,target) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $(target).attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(".img1").change(function(){      
+       var target = $(this).parent().children(".imgres");
+       readURL(this,target);
+    })
         })
     </script>
     <style>
@@ -40,7 +56,22 @@
     </style>
     <body>
         <div class="Container">
-		<?php echo form_open_multipart('MasterPromosi/UpdatePromosi',Array("class"=>"form-horizontal"))?>    
+		<?php echo form_open_multipart('MasterPromosi/UpdatePromosi',Array("class"=>"form-horizontal"))?>   
+		<?php if(!empty($msg)){foreach($msg as $r)
+		{
+			if(strpos($r,"Berhasil")>0){?>
+
+			<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<?php echo $r?>
+			</div>
+			<?php }else{?>
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<?php echo $r?>
+			</div>
+		<?php }}}?>
+		
             <div class="form-group">
             <legend>Input Data Promosi</legend>
             </div>
@@ -91,6 +122,13 @@
                         <textarea   name="Deskrip" class="form-control"><?php echo $detail->DESKRIPSI_PROMO?></textarea>
                     </div>         
                 </div>
+				<div class="form-group">
+                    <label class="control-label col-sm-3">Gambar Promosi: </label>
+                    <div class="col-sm-7">
+                        <img class="imgres" style="width:400px;height:150px;" src="<?php echo base_url('Produk/'.$GambarPth)?>" /><br>
+						<input class="img1" type="file" name="userfile" size="20" class="form-control" />
+                    </div>         
+                </div>
                 </div>
 				
 				<input type="hidden" value="<?php echo $detail->IDHPROMOSI?>" name="Idh">
@@ -110,9 +148,9 @@
 							{	
 						?>
 							<td class="centered">
-								<img class="gambar img-thumbnail center-block" src="
+								<img class="gambar img-thumbnail center-block" style="width:150px;height:150px" src="
 									<?php echo $b_url ?>
-									Image/
+									Produk/
 									<?php echo $hasil[$i][0][$j]?>" 
 								nama="<?php echo $hasil[$i][1][$j] ?>""</img>
 							</td>
