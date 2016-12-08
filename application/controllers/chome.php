@@ -13,6 +13,12 @@ class Chome extends CI_Controller {
 		$data['barang']=$this->rincian_produk_model->getProduk();
 		$data['kategori'] = $this->rincian_produk_model->getKategori();
 		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$data['promo']=$this->rincian_produk_model->getBannerPromo();
+		$data['produkHot']=$this->rincian_produk_model->getHotProduk();
+		$data['promoYangBerlaku']=$this->rincian_produk_model->getPromo();
+		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['produkHot']);
+		
+		
 		if($data['log'])
 		{
 			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));

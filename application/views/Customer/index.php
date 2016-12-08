@@ -3,7 +3,13 @@
 
 
 <head>
-	
+	<?php
+	function formatRp($angka)
+	{
+		$jadi = "Rp. " . number_format($angka,2,',','.');
+		return $jadi;
+	}
+	?>
     <meta charset="utf-8">
     <meta name="robots" content="all,follow">
     <meta name="googlebot" content="index,follow,snippet,archive">
@@ -37,7 +43,17 @@
 
     <link rel="shortcut icon" href="<?php echo base_url();?>favicon.png">
 
+<style>
+	.img-produk {
+    height:200px;
+    width:100%;
+    margin-top: 30px;
+    
+    
+    
+	}
 
+	</style>
 
 </head>
 
@@ -240,20 +256,14 @@
             <div class="container">
                 <div class="col-md-12">
                     <div id="main-slider">
-                        <div class="item ">
-							
-                            <img id="HPR0001" style= "width: 100%;height: 100%;"src="<?php echo base_url();?>Produk/a.jpg" alt="" class="img-responsive bannerPromo">
-							
-                        </div>
-                        <div class="item">
-                            <img class="img-responsive" src="<?php echo base_url();?>Produk/main-slider2.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-responsive" src="<?php echo base_url();?>Produk/main-slider3.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-responsive" src="<?php echo base_url();?>Produk/main-slider4.jpg" alt="">
-                        </div>
+						<?php foreach($promo as $p){ ?>
+							<div class="item ">
+								
+								<img id=<?php echo $p->IDHPROMOSI; ?> style= "width: 100%;height: 100%;"src="<?php echo base_url();?>Produk/<?php echo $p->GAMBARPROMO; ?>" alt="" class="img-responsive bannerPromo">
+								
+							</div>
+						<?php } ?>
+                       
                     </div>
                     <!-- /#main-slider -->
                 </div>
@@ -319,279 +329,150 @@
 
                 <div class="container">
                     <div class="product-slider">
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product1.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product1_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>Produk/product1.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">Fur coat with very but very very long name</a></h3>
-                                    <p class="price">$143.00</p>
-                                </div>
-                                <!-- /.text -->
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product2_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>Produk/product2.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">White Blouse Armani</a></h3>
-                                    <p class="price"><del>$280</del> $143.00</p>
-                                </div>
-                                <!-- /.text -->
-
-                                <div class="ribbon sale">
-                                    <div class="theribbon">SALE</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon -->
-
-                                <div class="ribbon new">
-                                    <div class="theribbon">NEW</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon -->
-
-                                <div class="ribbon gift">
-                                    <div class="theribbon">GIFT</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon -->
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product3.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product3_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>Produk/product3.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">Black Blouse Versace</a></h3>
-                                    <p class="price">$143.00</p>
-                                </div>
-                                <!-- /.text -->
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product3.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product3_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>Produk/product3.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">Black Blouse Versace</a></h3>
-                                    <p class="price">$143.00</p>
-                                </div>
-                                <!-- /.text -->
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product2_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>Produk/product2.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">White Blouse Versace</a></h3>
-                                    <p class="price">$143.00</p>
-                                </div>
-                                <!-- /.text -->
-
-                                <div class="ribbon new">
-                                    <div class="theribbon">NEW</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon -->
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product1.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product1_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>Produk/product1.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">Fur coat</a></h3>
-                                    <p class="price">$143.00</p>
-                                </div>
-                                <!-- /.text -->
-
-                                <div class="ribbon gift">
-                                    <div class="theribbon">GIFT</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon -->
-
-                            </div>
-                            <!-- /.product -->
-                        </div>
-                        <!-- /.col-md-4 -->
-
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product2_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>Produk/product2.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">White Blouse Armani</a></h3>
-                                    <p class="price"><del>$280</del> $143.00</p>
-                                </div>
-                                <!-- /.text -->
-
-                                <div class="ribbon sale">
-                                    <div class="theribbon">SALE</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon -->
-
-                                <div class="ribbon new">
-                                    <div class="theribbon">NEW</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon -->
-
-                                <div class="ribbon gift">
-                                    <div class="theribbon">GIFT</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon -->
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                        <div class="item">
-                            <div class="product">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product3.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>Produk/product3_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>Produk/product3.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3><a href="detail.html">Black Blouse Versace</a></h3>
-                                    <p class="price">$143.00</p>
-                                </div>
-                                <!-- /.text -->
-                            </div>
-                            <!-- /.product -->
-                        </div>
+						<?php $counter=0;?>
+						<?php foreach($produkHot as $h){ ?>
+							<?php $diskon=0; $found = false;?>
+							<?php foreach ($promoYangBerlaku as $p) {?>
+								<?php if($p->ID_PRODUK==$h->ID_PRODUK){ $found = true; $diskon =$p->DISKON_PROMOSI; break;} ?>
+							<?php } ?>
+							<!-- JIKA DISKON -->
+							<?php if($found) { ?>
+								
+									<div class="product">
+										<div class="flip-container">
+											<div class="flipper">
+												<div class="front">
+													<a href="">
+														<?php $ctr=0;?>
+														<?php foreach($gambar as $g){?>
+															<?php if($ctr==$counter) {?>
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
+															<?php	} ?>
+															<?php $ctr++;?>
+														<?php } ?>
+													</a>
+												</div>
+												<div class="back">
+													<a href="">
+														<?php $ctr=0;?>
+														<?php foreach($gambar as $g){?>
+															<?php if($ctr==$counter) {?>
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
+															<?php	} ?>
+															<?php $ctr++;?>
+														<?php } ?>
+													</a>
+												</div>
+											</div>
+										</div>
+										<a href="" class="invisible">
+											<?php $ctr=0;?>
+											<?php foreach($gambar as $g){?>
+												<?php if($ctr==$counter) {?>
+													<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
+												<?php	} ?>
+												<?php $ctr++;?>
+											<?php } ?>
+										</a>
+										<div class="text">
+											<h3><a href="" id="<?php echo $h->ID_PRODUK; ?>" class="detailBarang"><?php echo $h->NAMA_PRODUK; ?></a></h3>
+											<p class="price"><del><?php echo formatRp($h->HARGA_JUAL); ?></del> <?php echo formatRp($h->HARGA_JUAL-($h->HARGA_JUAL*$diskon /100)); ?></p>
+											<p class="buttons">
+												
+													
+													<a href="" id="<?php echo $h->ID_PRODUK; ?>"class="btn btn-default detailBarang">View detail</a>
+												
+												<form  style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/basket'); ?>">
+													<input type="hidden" name="nama_produk" value="<?php echo $h->NAMA_PRODUK; ?>" />
+													<button class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+												</form>
+												
+												<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
+													<input type="hidden" name="id_produk" value="<?php echo $h->ID_PRODUK; ?>" />
+													<button class="btn btn-primary" name='add'>Add to Wishlist</button>
+												</form>
+											</p>
+										</div>
+										<!-- /.text -->
+										
+										<div class="ribbon sale">
+											<div class="theribbon">SALE</div>
+											<div class="ribbon-background"></div>
+										</div>
+										<!-- /.ribbon -->
+									</div>
+									<!-- /.product -->
+								
+								<!-- JIKA TIDAK DISKON -->
+							<?php } else { ?>
+								
+									<div class="product">
+										<div class="flip-container">
+											<div class="flipper">
+												<div class="front">
+													<a href="">
+														<?php $ctr=0;?>
+														<?php foreach($gambar as $g){?>
+															<?php if($ctr==$counter) {?>
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
+															<?php	} ?>
+															<?php $ctr++;?>
+														<?php } ?>
+													</a>
+												</div>
+												<div class="back">
+													<a href="">
+														<?php $ctr=0;?>
+														<?php foreach($gambar as $g){?>
+															<?php if($ctr==$counter) {?>
+																<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
+															<?php	} ?>
+															<?php $ctr++;?>
+														<?php } ?>
+													</a>
+												</div>
+											</div>
+										</div>
+										<a href="" class="invisible">
+											<?php $ctr=0;?>
+											<?php foreach($gambar as $g){?>
+												<?php if($ctr==$counter) {?>
+													<img id="<?php echo $h->ID_PRODUK; ?>" src="<?php echo base_url();?>Produk/<?php echo $g->NAMA_GAMBAR.$g->EXTENSI; ?>" alt="" class="img-responsive detailBarang img-produk">
+												<?php	} ?>
+												<?php $ctr++;?>
+											<?php } ?>
+										</a>
+										<div class="text">
+											<h3><a href="" id="<?php echo $h->ID_PRODUK; ?>" class="detailBarang"><?php echo $h->NAMA_PRODUK; ?></a></h3>
+											<p class="price"><?php echo formatRp($h->HARGA_JUAL); ?></p>
+											<p class="buttons">
+												
+													
+													<a href="" id="<?php echo $h->ID_PRODUK; ?>"class="btn btn-default detailBarang">View Detail</a>
+												
+												<form  style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/basket'); ?>">
+													<input type="hidden" name="nama_produk" value="<?php echo $h->NAMA_PRODUK; ?>" />
+													<button class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to Cart</button>
+												</form>
+												
+												<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
+													<input type="hidden" name="id_produk" value="<?php echo $h->ID_PRODUK; ?>" />
+													<button class="btn btn-primary" name='add'>Add to Wishlist</button>
+												</form>
+											</p>
+										</div>
+										<!-- /.text -->
+									</div>
+									<!-- /.product -->
+								
+							<?php } ?>
+						<?php $counter++; } ?>
+						
+                        
+						
+						
+                    
+                        
 
                     </div>
                     <!-- /.product-slider -->
@@ -635,53 +516,8 @@
             <!-- *** BLOG HOMEPAGE ***
  _________________________________________________________ -->
 
-            <div class="box text-center" data-animate="fadeInUp">
-                <div class="container">
-                    <div class="col-md-12">
-                        <h3 class="text-uppercase">From our blog</h3>
 
-                        <p class="lead">What's new in the world of fashion? <a href="blog.html">Check our blog!</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-
-                <div class="col-md-12" data-animate="fadeInUp">
-
-                    <div id="blog-homepage" class="row">
-                        <div class="col-sm-6">
-                            <div class="post">
-                                <h4><a href="post.html">Fashion now</a></h4>
-                                <p class="author-category">By <a href="#">John Slim</a> in <a href="">Fashion and style</a>
-                                </p>
-                                <hr>
-                                <p class="intro">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-                                    ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                <p class="read-more"><a href="post.html" class="btn btn-primary">Continue reading</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="post">
-                                <h4><a href="post.html">Who is who - example blog post</a></h4>
-                                <p class="author-category">By <a href="#">John Slim</a> in <a href="">About Minimal</a>
-                                </p>
-                                <hr>
-                                <p class="intro">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-                                    ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                <p class="read-more"><a href="post.html" class="btn btn-primary">Continue reading</a>
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <!-- /#blog-homepage -->
-                </div>
-            </div>
+         
             <!-- /.container -->
 
             <!-- *** BLOG HOMEPAGE END *** -->

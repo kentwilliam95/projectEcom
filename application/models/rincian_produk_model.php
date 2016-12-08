@@ -8,9 +8,21 @@ class Rincian_produk_model extends CI_Model {
 	
 	function getPromo()
 	{
-		return $this->db->query("SELECT * FROM PROMOSI WHERE IDHPROMOSI IN (SELECT IDHPROMOSI FROM HPROMOSI WHERE `TGL_AKHIR_PROMOSI` < CURDATE());")->result();
+		return $this->db->query("SELECT * FROM PROMOSI WHERE IDHPROMOSI IN (SELECT IDHPROMOSI FROM HPROMOSI WHERE `STATUS`  = 'Y');")->result();
 		
 	}	
+	
+	function getHotProduk()
+	{
+		$this->db->limit(8);
+		$this->db->order_by('ID_PRODUK','desc');
+		return $this->db->get('produk')->result();
+	}
+	
+	function getBannerPromo()
+	{
+		return $this->db->query("select * from hpromosi")->result();
+	}
 	
 	function getPromoById($id)
 	{
