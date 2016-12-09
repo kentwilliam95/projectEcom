@@ -747,6 +747,20 @@
 				}
 			});
 		});
+		$('.detailBarang').click(
+		function(){
+			
+			$.ajax({
+				url:'<?php echo base_url("index.php/chome/getIdToDetail"); ?>',
+				type:       'POST',
+				data:{id:this.id},
+				cache:      false,
+				success: function(hasil){
+					window.location.href = "<?php echo site_url('/chome/showProductDetail');?>";
+
+				}
+			});
+		});
 	</script>
 </body>
 
