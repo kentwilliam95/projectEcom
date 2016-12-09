@@ -43,13 +43,12 @@
     <link rel="shortcut icon" href="<?php echo base_url();?>favicon.png">
 
 
-
 </head>
 
 <body>
     <!-- *** TOPBAR ***
  _________________________________________________________ -->
- <?php if($log){?>
+<?php if($log){?>
     <div id="top">
         <div class="container">
             <div class="col-md-6 offer" data-animate="fadeInDown">
@@ -118,6 +117,7 @@
     </div>
  <?php }?>
 
+
     <!-- *** TOP BAR END *** -->
 
     <!-- *** NAVBAR ***
@@ -140,8 +140,8 @@
                         <span class="sr-only">Toggle search</span>
                         <i class="fa fa-search"></i>
                     </button>
-                    <a class="btn btn-default navbar-toggle" href="<?php echo site_url('chome/tobasket'); ?>">
-                        <i class="fa fa-shopping-cart"></i>  <span class="hidden-xs"><?php echo $isicart;?> items in cart</span>
+                    <a class="btn btn-default navbar-toggle" href="basket.html">
+                        <i class="fa fa-shopping-cart"></i>  <span class="hidden-xs">3 items in cart</span>
                     </a>
                 </div>
             </div>
@@ -150,13 +150,9 @@
             <div class="navbar-collapse collapse" id="navigation">
 
                 <ul class="nav navbar-nav navbar-left">
-                    <li class="active"><a href="index">Home</a>
+                    <li class="active"><a href="index.html">Home</a>
                     </li>
-					
-							
-														
-													
-					<?php foreach($kategori as $k){ ?>
+                    <?php foreach($kategori as $k){ ?>
 					<li class="dropdown yamm-fw">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200"><?php echo $k->kategori_produk; ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -186,9 +182,6 @@
                     </li>
 					<?php } ?>
 					
-                    
-                              
-                   
                 </ul>
 
             </div>
@@ -208,18 +201,20 @@
                 </div>
 
             </div>
-
+			
+			
 			<div class="navbar-collapse collapse right" id="basket-overview">
 				<a href="<?php echo site_url('chome/towish'); ?>" class="btn btn-primary navbar-btn"><span class="hidden-sm">to Wishlist</span></a>
 			</div>
+			
             <div class="collapse clearfix" id="search">
 
                 <form class="navbar-form" role="search">
                     <div class="input-group">
-                        <input type="text" id="txtSearch" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="Search">
                         <span class="input-group-btn">
 
-			<button class="btn btn-primary searchButton"><i class="fa fa-search"></i></button>
+			<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 
 		    </span>
                     </div>
@@ -244,28 +239,33 @@
                     <ul class="breadcrumb">
                         <li><a href="#">Home</a>
                         </li>
-                        <li>Shopping cart</li>
+                        <li>Checkout - Order review</li>
                     </ul>
                 </div>
 
-                <div class="col-md-9" id="basket">
+                <div class="col-md-9" id="checkout">
 
                     <div class="box">
+                        <form method="post" action="checkout4.html">
+                            <h1>Checkout - Order review</h1>
+                            <ul class="nav nav-pills nav-justified">
+                                <li class="active"><a href="#"><i class="fa fa-eye"></i><br>Order Review</a>
+                                </li>
+                            </ul>
 
-                            <h1>Shopping cart</h1>
-                            <p class="text-muted">You currently have <?php echo $isicart; ?> item(s) in your cart.</p>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2">Product</th>
-                                            <th>Quantity</th>
-                                            <th colspan="2">Unit price</th>
-                                            <th colspan="2">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-									<?php $total=0;?>
+                            <div class="content">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Product</th>
+                                                <th>Quantity</th>
+                                                <th colspan="2">Unit price</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $total=0;?>
 									<?php $indx=0;?>
 									<?php foreach($cart as $s){?>
                                         <tr>
@@ -276,8 +276,8 @@
                                             </td>
                                             <td><a href="#"><?php echo $s->NAMA_PRODUK; ?></a>
                                             </td>
-                                            <td>
-												<input type="number" style="width:60px" id="<?php echo $indx;?>" value="<?php echo $s->JUMLAH; ?>" class="form-control">
+                                            <td align='center'>
+												<?php echo $s->JUMLAH; ?>
 											</td>
                                             <td colspan="2"><?php echo formatRp($s->HARGA_JUAL); ?></td>
                                             <td><?php echo formatRp($s->HARGA_JUAL*$s->JUMLAH); ?></td>
@@ -290,133 +290,43 @@
                                             </td>
                                         </tr>
 									<?php $indx++;}?>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th colspan="5">Subtotal</th>
-                                            <th colspan="2"><?php echo formatRp($total); ?></th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+												<th colspan="5">Subtotal</th>
+												<th colspan="2"><?php echo formatRp($total); ?></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
 
+                                </div>
+                                <!-- /.table-responsive -->
                             </div>
-                            <!-- /.table-responsive -->
+                            <!-- /.content -->
 
                             <div class="box-footer">
                                 <div class="pull-left">
-                                    <a href="category.html" class="btn btn-default"><i class="fa fa-chevron-left"></i> Continue shopping</a>
+                                    <a href="<?php echo site_url('chome/tobasket'); ?>" class="btn btn-default"><i class="fa fa-chevron-left"></i>Back to Shopping cart</a>
                                 </div>
                                 <div class="pull-right">
-								
-									<button class="btn btn-default" id="updatebasket"><i class="fa fa-refresh"></i> Update basket</button>
 									
-									<button type="submit" id="confirmcheckout" class="btn btn-primary">Proceed to checkout <i class="fa fa-chevron-right"></i>
+									<form method="post" accept-charset="utf-8" action="<?php echo site_url('chome/dopurchase'); ?>">
+									<input type="hidden" name="cart" value="<?php echo json_encode($cart); ?>" />
+                                    <button type="submit" class="btn btn-primary">Place an order<i class="fa fa-chevron-right"></i>
+									</form>
                                     </button>
                                 </div>
                             </div>
-
-
+                        </form>
                     </div>
                     <!-- /.box -->
-
-
-                    <div class="row same-height-row">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="box same-height">
-                                <h3>You may also like these products</h3>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>assets/img/product2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>assets/img/product2_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>assets/img/product2.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>assets/img/product1.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>assets/img/product1_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>assets/img/product1.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-
-                        <div class="col-md-3 col-sm-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>assets/img/product3.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                        <div class="back">
-                                            <a href="detail.html">
-                                                <img src="<?php echo base_url();?>assets/img/product3_2.jpg" alt="" class="img-responsive">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="detail.html" class="invisible">
-                                    <img src="<?php echo base_url();?>assets/img/product3.jpg" alt="" class="img-responsive">
-                                </a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-
-                                </div>
-                            </div>
-                            <!-- /.product -->
-                        </div>
-
-                    </div>
 
 
                 </div>
                 <!-- /.col-md-9 -->
 
                 <div class="col-md-3">
+
                     <div class="box" id="order-summary">
                         <div class="box-header">
                             <h3>Order summary</h3>
@@ -448,27 +358,6 @@
 
                     </div>
 
-
-                    <div class="box">
-                        <div class="box-header">
-                            <h4>Coupon code</h4>
-                        </div>
-                        <p class="text-muted">If you have a coupon code, please enter it in the box below.</p>
-                        <form>
-                            <div class="input-group">
-
-                                <input type="text" class="form-control">
-
-                                <span class="input-group-btn">
-
-					<button class="btn btn-primary" type="button"><i class="fa fa-gift"></i></button>
-
-				    </span>
-                            </div>
-                            <!-- /input-group -->
-                        </form>
-                    </div>
-
                 </div>
                 <!-- /.col-md-3 -->
 
@@ -476,6 +365,7 @@
             <!-- /.container -->
         </div>
         <!-- /#content -->
+
 
         <!-- *** FOOTER ***
  _________________________________________________________ -->
@@ -503,7 +393,7 @@
                         <ul>
                             <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
                             </li>
-                            <li><a href="register.html">Regiter</a>
+                            <li><a href="register.html">Register</a>
                             </li>
                         </ul>
 
@@ -651,98 +541,9 @@
     <script src="<?php echo base_url();?>assets/js/bootstrap-hover-dropdown.js"></script>
     <script src="<?php echo base_url();?>assets/js/owl.carousel.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/front.js"></script>
-	
-	<script>
-		$('.linkProduk').click(
-		function(){
-			
-			$.ajax({
-				url:'<?php echo base_url("index.php/chome/getId"); ?>',
-				type:       'POST',
-				data:{id:this.id},
-				cache:      false,
-				success: function(hasil){
-					window.location.href = "<?php echo site_url('/chome/searchProdukByMerk');?>";
 
-				}
-			});
-		});
-		
-		$('.searchButton').click(
-		function(){
-			var search = document.getElementById("txtSearch").value;
-			$.ajax({
-				url:'<?php echo base_url("index.php/chome/getId"); ?>',
-				type:       'POST',
-				data:{id:search},
-				cache:      false,
-				success: function(hasil){
-					window.location.href = "<?php echo site_url('/chome/searchProdukByNama');?>";
 
-				}
-			});
-		});
-		
-		$('#updatebasket').click(
-		function(){
-			var test = getJumlah();
-			var idproduk = new Array();
-			<?php	
-			foreach($cart as $r)
-			{
-				?>idproduk.push("<?php echo $r->ID_PRODUK;?>"); <?php
-			}
-			?>
 
-			
-			$.ajax({
-				url:'<?php echo base_url("index.php/chome/dimanavariabelku"); ?>',
-				type:       'POST',
-				data:{id:test,produk:idproduk},
-				cache:      false,
-				success: function(hasil){
-					window.location.href = "<?php echo site_url('/chome/updatebasket');?>";
-
-				}
-			});
-		});
-		$('#confirmcheckout').click(
-		function(){
-			var test = getJumlah();
-			var idproduk = new Array();
-			<?php	
-			foreach($cart as $r)
-			{
-				?>idproduk.push("<?php echo $r->ID_PRODUK;?>"); <?php
-			}
-			?>
-
-			
-			$.ajax({
-				url:'<?php echo base_url("index.php/chome/dimanavariabelku"); ?>',
-				type:       'POST',
-				data:{id:test,produk:idproduk},
-				cache:      false,
-				success: function(hasil){
-					window.location.href = "<?php echo site_url('/chome/confirmcheck');?>";
-
-				}
-			});
-		});
-		function getJumlah(){
-			var jumlah = new Array();
-			<?php
-			$index=0;
-			foreach($cart as $r)
-			{
-				?>jumlah.push(document.getElementById("<?php echo $index;?>").value); <?php
-				$index++;
-			}
-			?>
-			return jumlah.toString();
-		}
-		
-	</script>
 
 
 
