@@ -16,6 +16,10 @@ class Master extends CI_Controller
         {
             $data["msg"]=$this->session->flashdata("item");
         }
+		$data["JenisProduk"] = $this->Basic->query("select distinct(jenis_produk) from rincian_produk");
+		
+		$data["KategoriProduk"] = $this->Basic->query("select distinct(KATEGORI_PRODUK) from rincian_produk");
+		
         $data["Autogen"] = $this->getAutogenProduk(); 
         $this->load->view("HeaderMaster");
         $this->load->view("MasterProduk",$data);
@@ -70,6 +74,7 @@ class Master extends CI_Controller
        $value = Array("NAMA_PRODUK"=>$fakta["Nama"],"HARGA_JUAL"=>$fakta["Harga"],"MEREK_PRODUK"=>$fakta["Merek"],"STOK"=>$fakta["Stok"],"KETERANGAN"=>$fakta["Keterangan"]);
        $this->Basic->UpdateData("produk",$value,Array("ID_PRODUK"=>$fakta["Id"]));
        array_push($msg,"Data Berhasil di Update .");
+	   
        for($i=0; $i<count($arrGambar); $i++)
         {
             $this->load->library('upload', $this->getConfig($fakta["Id"]));
@@ -112,6 +117,12 @@ class Master extends CI_Controller
         $Autogen = "PRO".sprintf("%04d",$nomor);
         return $Autogen;
     }
+	function getAutogenRincian()
+    {
+        $nomor = $this->Basic->Autogen("SELECT (max(SUBSTRING(`ID_RINCIAN`,4))+1)as nomor from rincian_produk")[0]->nomor;
+        $Autogen = "RIN".sprintf("%04d",$nomor);
+        return $Autogen;
+    }
     public function do_upload()
      {
            $fakta = $this->GetInputData();
@@ -123,7 +134,11 @@ class Master extends CI_Controller
             
             $value = Array("ID_PRODUK"=>$fakta["Id"],"NAMA_PRODUK"=>$fakta["Nama"],"HARGA_JUAL"=>$fakta["Harga"],"MEREK_PRODUK"=>$fakta["Merek"],"STOK"=>$fakta["Stok"],"KETERANGAN"=>$fakta["Keterangan"]);
             $this->Basic->Insert("Produk",$value); 
-
+			
+			$autoGenRincian = $this->getAutogenRincian();
+			$valrincian = Array("ID_RINCIAN"=>$autoGenRincian,"ID_PRODUK"=>$fakta["Id"],"JENIS_PRODUK"=>$fakta["jenis"],"KATEGORI_PRODUK"=>$fakta["kategori"]);
+			
+			$this->Basic->insert("rincian_produk",$valrincian);
             for($i=0; $i<count($arrGambar); $i++)
             {
                 $this->load->library('upload', $this->getConfig($Id));
@@ -165,8 +180,9 @@ class Master extends CI_Controller
           $bahan["Idg0"] = $this->input->post("Idg0",true);
           $bahan["Idg1"] = $this->input->post("Idg1",true);
           $bahan["Idg2"] = $this->input->post("Idg2",true);
+		  $bahan["kategori"] = $this->input->post("kategori",true);
+		  $bahan["jenis"] = $this->input->post("jenis",true);
           return $bahan;
       }
-    
 }
 ?>

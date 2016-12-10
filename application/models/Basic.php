@@ -46,5 +46,15 @@ class Basic extends CI_Model
         $this->db->where($kondisi);
         return $this->db->get()->result_array();
     }
+	function Query($val)
+	{
+		$hasil = $this->db->query($val)->result();
+		return $hasil;
+	}
+	function Query_array($val)
+	{
+		$hasil = $this->db->query($val)->result_array();
+		return $hasil;
+	}
 }
 ?>

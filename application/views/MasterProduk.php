@@ -16,6 +16,54 @@ $(document).ready(function(){
        var target = $(this).parent().children(".imgres");
        readURL(this,target);
     })
+	var jenisEdit;
+	var kategoriEdit;
+	$("#jenis").keydown(function(e){
+		if(!jenisEdit)
+		{e.preventDefault();}
+		else
+		{return;}
+		
+	})
+	
+	$("#kategori").keydown(function(e){
+		if(!kategoriEdit)
+		{e.preventDefault();}
+		else
+		{return;}
+		
+	})
+	
+	$(".liSel1").click(function(){
+		var nilai = $(this).attr('jns');
+		
+		if(nilai != "")
+		{
+			$("#jenis").val(nilai);
+			jenisEdit = false;
+		}
+		else
+		{
+			$("#jenis").val("");
+			jenisEdit = true;
+		}
+		
+	})
+	$(".liSel2").click(function(){
+		var nilai = $(this).attr('jns');
+		if(nilai != "")
+		{
+			$("#kategori").val(nilai);
+			kategoriEdit = false;
+		}
+		else
+		{
+			$("#kategori").val("");
+			kategoriEdit = true;
+		}
+		
+	})
+	
 })
 </script>
 <div class="container">
@@ -66,7 +114,49 @@ $(document).ready(function(){
                     <input type="text" name="Stok" class="form-control"/>
                 </div>         
             </div>
+			
+			<div class="form-group">
+                <label class="control-label col-sm-2">Jenis Produk: </label>
+                <div class="col-sm-2">
+                    <div class="dropdown">
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Pilih Jenis Produk
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+						  <?php foreach($JenisProduk as $r){?>
+						  <li class="liSel1" jns="<?php echo $r->jenis_produk?>"><a href="#"><?php echo $r->jenis_produk?></a></li>
+						  <?php }?>
+						  
+						  <li class="divider"></li>
+						  <li class="liSel1" jns=""><a href="#"><b>Add New Jenis</b></a></li>
+						</ul>
+					</div>
+                </div>    
 
+				<div class="col-sm-2">
+                    <input type="text" name="jenis" id="jenis" class="form-control"  required  />
+                </div>       
+            </div>
+			
+			<div class="form-group">
+                <label class="control-label col-sm-2">Kategori Produk: </label>
+                <div class="col-sm-2">
+                    <div class="dropdown">
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Pilih Kategori
+						<span class="caret"></span></button>
+						<ul class="dropdown-menu">
+						  <?php foreach($KategoriProduk as $r){?>
+						  <li class="liSel2" jns="<?php echo $r->KATEGORI_PRODUK?>"><a href="#"><?php echo $r->KATEGORI_PRODUK?></a></li>
+						  <?php }?>
+						  <li class="divider"></li>
+						  <li class="liSel2" jns=""><a href="#"><b>Add New Kategori</b></a></li>
+						</ul>
+					</div>
+                </div>
+				<div class="col-sm-2">
+                    <input type="text" name="kategori" id="kategori" class="form-control" required />
+                </div>      
+            </div>
+			
             <div class="form-group">
                 <label class="control-label col-sm-2">Deskripsi Produk: </label>
                 <div class="col-sm-4">
@@ -95,7 +185,7 @@ $(document).ready(function(){
             <input type="hidden" value="<?php echo $Autogen?>" name="Idh">
             <div class="form-group">
                 <div class="col-sm-3 col-sm-offset-2">
-                    <button type="submit" value="upload" class="btn btn-primary">Insert</button>
+                    <button type="submit" value="upload" id="submitBtn" class="btn btn-primary">Insert</button>
                 </div>
             </div>
     </form>
