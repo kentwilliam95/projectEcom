@@ -28,7 +28,7 @@
 					<li><a href="<?php echo site_url("Master_Karyawan/ListKaryawan")?>">List Karyawan</a></li>
 					<li><a href="<?php echo site_url("MasterPromosi/index")?>">Master Promosi</a></li>
 					<li><a href="<?php echo site_url("MasterPromosi/ListPromosi")?>">List Promosi</a></li>
-					<li><a href="<?php echo site_url("Chome/index")?>">Log Out</a></li>
+					<li><a href="<?php echo site_url("Chome/logout")?>">Log Out</a></li>
 				</ul>
 			</div>
 		</nav>
