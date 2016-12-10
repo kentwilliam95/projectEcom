@@ -559,7 +559,7 @@ class Chome extends CI_Controller {
 		{
 			$data['isicart']=0;
 		}
-		
+		redirect("chome/index");
 		$this->load->view('Customer/index.php',$data);
     }
 	public function detail()
