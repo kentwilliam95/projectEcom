@@ -187,6 +187,77 @@ class Rincian_produk_model extends CI_Model {
 		return $this->db->get('produk')->result();
 	}
 	
+	function getStokProduk($id)
+	{
+		$this->db->select('stok');
+		$this->db->where('id_produk',$id);
+		$result = $this->db->get('produk')->row();  
+		return $result->stok;
+	}
+	
+	function getNamaProdukById($id)
+	{
+		$this->db->select('nama_produk');
+		$this->db->where('id_produk',$id);
+		$result = $this->db->get('produk')->row();  
+		return $result->nama_produk;
+	}
+	
+	function updateStokProduk($idproduk,$jumlah) 
+	{
+		$data= array(
+		   'STOK'=>$jumlah
+		);
+		$this->db->where('ID_PRODUK', $idproduk);
+		return $this->db->update('PRODUK',$data);
+	}
+	//hjual djual
+	function getHjualId($id)
+	{
+		$this->db->select("lpad((count(`ID_HJUAL`)+1),4,'0') AS NO");
+		$this->db->where('LEFT(`ID_HJUAL`,6)',$id);
+		$result = $this->db->get('hjual')->row();  
+		return $result->NO;
+	}
+	function getSJId()
+	{
+		$this->db->select("lpad((count(`NO_SURATJALAN`)+1),10,'0') AS NO");
+		$result = $this->db->get('hjual')->row();  
+		return $result->NO;
+	}
+	
+	function insertHjual($id,$total,$surat,$status) 
+	{		
+		$data= array(
+		   'ID_HJUAL' => $id,
+		   'TOTAL'=>$total,
+		   'NO_SURATJALAN'=>$surat,
+		   'STATUS'=>$status
+		);
+		return $this->db->insert('hjual',$data);
+	}
+	function getDjualId($id)
+	{
+		$this->db->select("lpad((count(`IDDJUAL`)+1),4,'0') AS NO");
+		$this->db->where('LEFT(`IDDJUAL`,6)',$id);
+		$result = $this->db->get('djual')->row();  
+		return $result->NO;
+	}
+	
+	function insertDjual($id,$idhjual,$idproduk,$nama,$harga,$jumlah,$total) 
+	{		
+		$data= array(
+			'IDDJUAL' => $id,
+			'ID_HJUAL' => $idhjual,
+			'ID_PRODUK' => $idproduk,
+			'NAMA_PRODUK' => $nama,
+			'HARGA_PRODUK' => $harga,
+			'JUMLAH_PRODUK' => $jumlah,
+			'TOTAL'=>$total
+		);
+		return $this->db->insert('djual',$data);
+	}
+	
 		//cart
 	
 	function insertCart($id,$idproduk,$idcust,$jumlah) 
@@ -208,6 +279,10 @@ class Rincian_produk_model extends CI_Model {
 		$this->db->where('ID_PRODUK', $idproduk);
 		$this->db->where('ID_CUSTOMER', $idcust);
 		return $this->db->update('shoppingcart',$data);
+	}
+	function clearCart($idcust) 
+	{
+		$this->db->delete('shoppingcart', array('ID_CUSTOMER' => $idcust));
 	}
 	function deleteCart($idproduk,$idcust) 
 	{
