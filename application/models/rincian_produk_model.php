@@ -370,7 +370,15 @@ class Rincian_produk_model extends CI_Model {
 		$count = count($hasil);
 		return $count;
 	}
-	
+	function cekLoginStaff($user,$pass) 
+	{
+		$this->db->where('ID_PEGAWAI',$user);
+		$this->db->where('PASSWORD',$pass);
+		$hasil= $this->db->get('PEGAWAI')->result();
+		
+		$count = count($hasil);
+		return $count;
+	}
 	
 }
 ?> ;
