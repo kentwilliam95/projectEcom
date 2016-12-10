@@ -595,6 +595,7 @@ class Chome extends CI_Controller {
 		$data['email'] = $this->input->post('email');
 		$data['pass'] = $this->input->post('pass');
 		$log = $this->rincian_produk_model->cekLogin($data['email'],$data['pass']);
+		$logstaff = $this->rincian_produk_model->cekLoginStaff($data['email'],$data['pass']);
 		$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
@@ -608,6 +609,10 @@ class Chome extends CI_Controller {
 			$this->session->set_userdata('ID_CUSTOMER',$data['email']);
 			$this->rincian_produk_model->updateWish($data['email'],$this->session->userdata('sessionid'));
 			redirect('chome/index','refresh');
+		}
+		else if ($logstaff==1)
+		{
+			redirect('Master/index');
 		}
 		else
 		{
