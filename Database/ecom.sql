@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2016 at 03:12 PM
+-- Generation Time: Dec 10, 2016 at 06:26 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecom`
 --
-CREATE DATABASE IF NOT EXISTS `ecom` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `ecom`;
 
 -- --------------------------------------------------------
 
@@ -72,6 +70,15 @@ CREATE TABLE `djual` (
   `JUMLAH_PRODUK` float DEFAULT NULL,
   `TOTAL` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `djual`
+--
+
+INSERT INTO `djual` (`IDDJUAL`, `ID_HJUAL`, `ID_PRODUK`, `NAMA_PRODUK`, `HARGA_PRODUK`, `JUMLAH_PRODUK`, `TOTAL`) VALUES
+('1012160001', '1012160001', 'PRO0004', 'SUSU SAPI ULTRAMILK KOTAK', 3300, 2, 6600),
+('1012160002', '1012160001', 'PRO0003', 'SUSU SAPI GREENFIELD PLAIN 1L', 20240, 1, 20240),
+('1012160003', '1012160003', 'PRO0009', 'MOBIL 1', 4000, 1, 4000);
 
 -- --------------------------------------------------------
 
@@ -159,7 +166,57 @@ INSERT INTO `gambar` (`ID_GAMBAR`, `ID_PRODUK`, `NAMA_GAMBAR`, `EXTENSI`) VALUES
 (66, 'PRO0015', 'PRO00151.jpg', NULL),
 (67, 'PRO0009', 'PRO0009.jpg', NULL),
 (68, 'PRO0009', 'PRO00091.jpg', NULL),
-(69, 'PRO0009', 'PRO00092.jpg', NULL);
+(69, 'PRO0009', 'PRO00092.jpg', NULL),
+(73, 'PRO0056', 'PRO0056.jpg', NULL),
+(74, 'PRO0056', 'PRO00561.jpg', NULL),
+(75, 'PRO0056', 'PRO00562.jpg', NULL),
+(76, NULL, '5.jpg', NULL),
+(77, NULL, '6.jpg', NULL),
+(78, NULL, '7.jpg', NULL),
+(79, 'PRO0057', 'PRO0057.jpg', NULL),
+(80, 'PRO0057', 'PRO00571.jpg', NULL),
+(81, 'PRO0057', 'PRO00572.jpg', NULL),
+(82, 'PRO0058', '8.jpg', NULL),
+(83, 'PRO0058', '9.jpg', NULL),
+(84, 'PRO0058', '10.jpg', NULL),
+(85, 'PRO0059', '11.jpg', NULL),
+(86, 'PRO0059', '12.jpg', NULL),
+(87, 'PRO0059', '13.jpg', NULL),
+(88, 'PRO0060', '14.jpg', NULL),
+(89, 'PRO0060', '15.jpg', NULL),
+(90, 'PRO0060', '16.jpg', NULL),
+(91, 'PRO0061', '.png', NULL),
+(92, 'PRO0061', '17.jpg', NULL),
+(93, 'PRO0061', '18.jpg', NULL),
+(94, 'PRO0062', '19.jpg', NULL),
+(95, 'PRO0062', '1.png', NULL),
+(96, 'PRO0062', '20.jpg', NULL),
+(97, 'PRO0063', '21.jpg', NULL),
+(98, 'PRO0063', '22.jpg', NULL),
+(99, 'PRO0063', '23.jpg', NULL),
+(100, 'PRO0064', '24.jpg', NULL),
+(101, 'PRO0064', '25.jpg', NULL),
+(102, 'PRO0064', '26.jpg', NULL),
+(103, 'PRO0065', '27.jpg', NULL),
+(104, 'PRO0065', '28.jpg', NULL),
+(105, 'PRO0065', '29.jpg', NULL),
+(106, 'PRO0066', '30.jpg', NULL),
+(107, 'PRO0066', '31.jpg', NULL),
+(108, 'PRO0066', '32.jpg', NULL),
+(109, 'PRO0067', '33.jpg', NULL),
+(110, 'PRO0067', '34.jpg', NULL),
+(111, 'PRO0067', '35.jpg', NULL),
+(112, 'PRO0068', '36.jpg', NULL),
+(113, 'PRO0068', '37.jpg', NULL),
+(114, 'PRO0068', '38.jpg', NULL),
+(115, 'PRO0069', '39.jpg', NULL),
+(116, 'PRO0069', '40.jpg', NULL),
+(117, 'PRO0069', '41.jpg', NULL),
+(118, 'PRO0070', '42.jpg', NULL),
+(119, 'PRO0070', '43.jpg', NULL),
+(120, 'PRO0070', '44.jpg', NULL),
+(121, 'PRO0071', '45.jpg', NULL),
+(122, 'PRO0071', '46.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -173,6 +230,15 @@ CREATE TABLE `hjual` (
   `NO_SURATJALAN` varchar(12) DEFAULT NULL,
   `STATUS` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hjual`
+--
+
+INSERT INTO `hjual` (`ID_HJUAL`, `TOTAL`, `NO_SURATJALAN`, `STATUS`) VALUES
+('1012160001', 26840, 'SJ0000000001', 'D'),
+('1012160002', 0, 'SJ0000000002', 'D'),
+('1012160003', 4000, 'SJ0000000003', 'D');
 
 -- --------------------------------------------------------
 
@@ -249,15 +315,15 @@ CREATE TABLE `produk` (
 INSERT INTO `produk` (`ID_PRODUK`, `NAMA_PRODUK`, `HARGA_JUAL`, `MEREK_PRODUK`, `STOK`, `KETERANGAN`) VALUES
 ('PRO0001', 'NUGGET AYAM', 6000, 'FIESTA', '10', 'Penjelasan Produk-Nuget Ayam Spesial Buatan Fiesta-sehat dan bergizi- low fat-bagus untuk makanan cepat saji-tinggi protein#Keterangan Produk-Berat:250g-expired Date:22 Oct 2016-BahanProduk: tepung, gula, merica, dan rempah-rempah'),
 ('PRO0002', 'GALAXY S6', 6500, 'SAMSUNG', '10', 'Penjelasan Produk-Handphone keluaran Samsung yang paling bagus,elgean, dan sexy. Batterai bisa bertahan sampai 1 minggu tanpa cas#Keterangan Produk-Berat:100g-Batterai:6000 MAH-Internet:4g/HSDPA/3.5G-casing:Besi dan Plastik-Sensor:Accelerometer & Gyro'),
-('PRO0003', 'SUSU SAPI GREENFIELD PLAIN 1L', 23000, 'GREENFIELD', '10', 'Penjelasan Produk-Produk ini merupakan Susu terbaik dari Greenfield dan susunya alami terasa seperti di kandang greenfield ketika diminum#Keterangan Produk-Berat:1000g-expired Date:25 Oct 2016-BahanProduk: Susu dan pengawet lemah-tanggal Produksi:25 september 2016'),
-('PRO0004', 'SUSU SAPI ULTRAMILK KOTAK', 5000, 'ULTRAMILK', '10', 'Penjelasan Produk-Susu sapi klasik dari ultramilk#Keterangan Produk-Berat:250g-expired Date:22 Oct 2016-BahanProduk: Susu, kakao, dan pemanis buatan-tanggal Produksi:22 september 2016'),
+('PRO0003', 'SUSU SAPI GREENFIELD PLAIN 1L', 23000, 'GREENFIELD', '9', 'Penjelasan Produk-Produk ini merupakan Susu terbaik dari Greenfield dan susunya alami terasa seperti di kandang greenfield ketika diminum#Keterangan Produk-Berat:1000g-expired Date:25 Oct 2016-BahanProduk: Susu dan pengawet lemah-tanggal Produksi:25 september 2016'),
+('PRO0004', 'SUSU SAPI ULTRAMILK KOTAK', 5000, 'ULTRAMILK', '8', 'Penjelasan Produk-Susu sapi klasik dari ultramilk#Keterangan Produk-Berat:250g-expired Date:22 Oct 2016-BahanProduk: Susu, kakao, dan pemanis buatan-tanggal Produksi:22 september 2016'),
 ('PRO0005', 'AIR MINERAL', 7000, 'AQUA', '10', 'Penjelasan Produk-Air mineral dari gunung kakek bodo alami airnya 100%#Keterangan Produk-Berat:600g-expired Date:NONE-BahanProduk: Air Kakek Bodo'),
 ('PRO0006', 'PEPSI BLUE', 4000, 'PEPSI', '10', 'Penjelasan Produk-Produk dari Pepsi yang bernama Pepsi blue yang mempunyai sensai luarbiasa birunya dan dapat menghilangkan sakit kepala#Keterangan Produk-Berat:350g-expired Date:22 DEC 2016-BahanProduk: pemanis buatan, air soda, pewarna buatan dan sensasi'),
 ('PRO0007', 'BEDAK', 4000, 'ORIFLAME', '10', 'Penjelasan Produk-Produk bedan dari Oriflame yang dapat memercantik muka anda dalam sekali tebas#Keterangan Produk-Berat:50g-expired Date:NONE-BahanProduk: talk, magnesium silikat, vitamin E, dan bismuth oksiklorida'),
 ('PRO0008', 'LIPSTICK', 4000, 'ORIFLAME', '10', 'Penjelasan Produk-Produk sepesial lagi dari oriflame yaitu lipstik kecantikan bibir, dengan ini bibir anda akan berwana terang tanpa lampu#Keterangan Produk-Berat:20g-expired Date:None-BahanProduk: Neon, pewarna Buatan, Perasa, dan vitamin E'),
-('PRO0009', 'MOBIL 1', 4000, 'HOTWHEELS', '10', 'Penjelasan Produk-Mobil ini adalah mobil pertama hotwheels yang bentuknya sangat istimewa dan sangat cepat dalam melaju di track #Keterangan Produk-Berat:50g-BahanProduk: plastik, besi, karet, dan tembaga-Dimensi: 6 x 18x 6.8"'),
+('PRO0009', 'MOBIL 1', 4000, 'HOTWHEELS', '9', 'Penjelasan Produk-Mobil ini adalah mobil pertama hotwheels yang bentuknya sangat istimewa dan sangat cepat dalam melaju di track #Keterangan Produk-Berat:50g-BahanProduk: plastik, besi, karet, dan tembaga-Dimensi: 6 x 18x 6.8"'),
 ('PRO0010', 'KAMEN RIDER', 8000, 'BANDAI', '10', 'Penjelasan Produk-Sebuah Action figure dari Bandai yaitu Kamen Rider yang telah di desain untuk anak-anak jaman sekarang ini mudah dipakai dan jangan sampai dimakan #Keterangan Produk-Berat:70g-BahanProduk: Besi, Plastik, Tembaga, Motor, dan panel-Dimensi Benda:7cm x10 cm x 3cm'),
-('PRO0011', 'TUNA KALENG', 15000, 'KING FISHER', '10', ''),
+('PRO0011', 'TUNA KALENG', 15000, 'KING FISHER', '10', 'Penjelasan ProdukTuna kaleng merek King Fisher yang berkualitas tinggi dan bermutu tinggi #Keterangan Produk-Berat:250g-expired Date:22 Oct 2017-BahanProduk: tepung, gula, merica, rempah, Dagin sapi dan Bumbu special'),
 ('PRO0012', 'MESIN CUCI A', 15000, 'LG ', '10', ''),
 ('PRO0013', 'INDOMIE', 15000, 'INDOFOOD ', '10', ''),
 ('PRO0014', 'PASTO', 18000, 'LA FONTE', '10', ''),
@@ -269,7 +335,23 @@ INSERT INTO `produk` (`ID_PRODUK`, `NAMA_PRODUK`, `HARGA_JUAL`, `MEREK_PRODUK`, 
 ('PRO0020', 'ULTRAMAN', 13000, 'BANDAI ', '10', ''),
 ('PRO0031', 'sticker', 2000, 'paperclip', '100', ''),
 ('PRO0032', 'speaker', 150000, 'simbada', '10', ''),
-('PRO0039', 'FlashDisk Data Traveler 64-32GB', 250000, 'Kingston', '15', 'Penjelasan Produk -Flash Disk ini Bersisi 32GB dan usb 3.0#\r\nKeterangan Produk-Besar:3cmX5cmX1CM-merek:Kingston-GB:32-Warna:Putih-Berat:15Gram#');
+('PRO0039', 'FlashDisk Data Traveler 64-32GB', 250000, 'Kingston', '15', 'Penjelasan Produk -Flash Disk ini Bersisi 32GB dan usb 3.0#\r\nKeterangan Produk-Besar:3cmX5cmX1CM-merek:Kingston-GB:32-Warna:Putih-Berat:15Gram#'),
+('PRO0056', 'Brokoli Super', 15000, 'The Green', '50', 'Penjelasan Produk-Sebuah Sayur mayur yang mengandung gizi yang sangat banyak lebih banyak dari sayur mayur yang lain, dapat membuat tubuh menjadi sehat #Keterangan Produk-Nutrisi:vitaminA, Vitamin C, Vitamin D, dan Vitamin E-Tempat Penyimpanan:Taruh di kulkas jangan sampai brokoli ini terletak di luar kulkas karena dapat mengundang banyak ulat'),
+('PRO0057', 'HH Cucumber', 25000, 'Hot House', '50', 'Penjelasan Produk-Mentimun ini sangat istimewa dikarenakan ditanam diladang yang mempunyai penghasilan mentimun yang sangat bagus-Bergizi-rasanya enak di badan#Keterangan Produk-kalori:10-Total Lemak:0-kolestrol:0'),
+('PRO0058', 'Baby Spinach', 20000, 'HOT HOUSE', '25', 'Penjelasan Produk-Sebuah Sayur mayur yang mengandung gizi yang sangat banyak lebih banyak dari sayur mayur yang lain, dapat membuat tubuh menjadi sehat dan diproduksi oleh HOT HOUSE#Keterangan Produk-Nutrisi:vitaminA, Vitamin C, Vitamin D, dan Vitamin E-Tempat Penyimpanan:Taruh di kulkas jangan sampai brokoli ini terletak di luar kulkas karena dapat mengundang banyak ulat'),
+('PRO0059', 'Tomat', 2500, 'HOT HOUSE', '100', 'Penjelasan Produk-Sebuah Sayur mayur yang mengandung gizi yang sangat banyak lebih banyak dari sayur mayur yang lain, dapat membuat tubuh menjadi sehat dan diproduksi oleh HOT HOUSE#Keterangan Produk-Nutrisi:vitaminA, Vitamin C, Vitamin D, dan Vitamin E-Tempat Penyimpanan:Taruh di kulkas jangan sampai brokoli ini terletak di luar kulkas karena dapat mengundang banyak ulat'),
+('PRO0060', 'Selada Air', 7500, 'HOT HOUSE', '37', 'Penjelasan Produk-Sebuah Sayur mayur yang mengandung gizi yang sangat banyak lebih banyak dari sayur mayur yang lain, dapat membuat tubuh menjadi sehat #Keterangan Produk-Nutrisi:vitaminA, Vitamin C, Vitamin D, dan Vitamin E-Tempat Penyimpanan:Taruh di kulkas jangan sampai brokoli ini terletak di luar kulkas karena dapat mengundang banyak ulat'),
+('PRO0061', 'Bawang Putih', 2000, 'HOT HOUSE', '25', 'Penjelasan Produk-Sebuah Sayur mayur yang mengandung gizi yang sangat banyak lebih banyak dari sayur mayur yang lain, dapat membuat tubuh menjadi sehat #Keterangan Produk-Nutrisi:vitaminA, Vitamin C, Vitamin D, dan Vitamin E-Tempat Penyimpanan:Taruh di kulkas jangan sampai brokoli ini terletak di luar kulkas karena dapat mengundang banyak ulat'),
+('PRO0062', 'Kacang Panjang', 10000, 'HOT HOUSE', '50', 'Penjelasan Produk-Sebuah Sayur mayur yang mengandung gizi yang sangat banyak lebih banyak dari sayur mayur yang lain, dapat membuat tubuh menjadi sehat #Keterangan Produk-Nutrisi:vitaminA, Vitamin C, Vitamin D, dan Vitamin E-Tempat Penyimpanan:Taruh di kulkas jangan sampai brokoli ini terletak di luar kulkas karena dapat mengundang banyak ulat'),
+('PRO0063', 'Kacang', 25000, 'HOT HOUSE', '50', 'Penjelasan Produk-Sebuah Sayur mayur yang mengandung gizi yang sangat banyak lebih banyak dari sayur mayur yang lain, dapat membuat tubuh menjadi sehat #Keterangan Produk-Nutrisi:vitaminA, Vitamin C, Vitamin D, dan Vitamin E-Tempat Penyimpanan:Taruh di kulkas jangan sampai brokoli ini terletak di luar kulkas karena dapat mengundang banyak ulat'),
+('PRO0064', 'Bok choy', 7000, 'HOT HOUSE', '10', 'Penjelasan Produk-Sebuah Sayur mayur yang mengandung gizi yang sangat banyak lebih banyak dari sayur mayur yang lain, dapat membuat tubuh menjadi sehat #Keterangan Produk-Nutrisi:vitaminA, Vitamin C, Vitamin D, dan Vitamin E-Tempat Penyimpanan:Taruh di kulkas jangan sampai brokoli ini terletak di luar kulkas karena dapat mengundang banyak ulat'),
+('PRO0065', 'Fiesta Karage', 75000, 'Fiesta', '25', 'Penjelasan Produk-Nuget Ayam Spesial Buatan Fiesta-sehat dan bergizi- low fat-bagus untuk makanan cepat saji-tinggi protein#Keterangan Produk-Berat:250g-expired Date:22 Oct 2016-BahanProduk: tepung, gula, merica, dan rempah-rempah'),
+('PRO0066', 'Fiesta Sosis', 57000, 'Fiesta', '25', 'Penjelasan Produk-Nuget Ayam Spesial Buatan Fiesta-sehat dan bergizi- low fat-bagus untuk makanan cepat saji-tinggi protein#Keterangan Produk-Berat:250g-expired Date:22 Oct 2016-BahanProduk: tepung, gula, merica, dan rempah-rempah'),
+('PRO0067', 'Fiesta Animal', 67000, 'Fiesta', '25', 'Penjelasan Produk-Nuget Ayam Spesial Buatan Fiesta-sehat dan bergizi- low fat-bagus untuk makanan cepat saji-tinggi protein#Keterangan Produk-Berat:250g-expired Date:22 Oct 2016-BahanProduk: tepung, gula, merica, dan rempah-rempah'),
+('PRO0068', 'King Fisher Premium Beer ', 100000, 'king fisher', '105', 'Penjelasan ProdukTuna kaleng merek King Fisher yang berkualitas tinggi dan bermutu tinggi #Keterangan Produk-Berat:250g-expired Date:22 Oct 2017-BahanProduk: tepung, gula, merica, rempah, Dagin sapi dan Bumbu special'),
+('PRO0069', 'King Fisher Strong Beer', 135000, 'king fisher', '25', 'Penjelasan ProdukTuna kaleng merek King Fisher yang berkualitas tinggi dan bermutu tinggi #Keterangan Produk-Berat:250g-expired Date:22 Oct 2017-BahanProduk: tepung, gula, merica, rempah, Dagin sapi dan Bumbu special'),
+('PRO0070', 'Indofood Bumbu kare', 17500, 'indofood', '15', 'Penjelasan Produk-Produk sepesial lagi dari oriflame yaitu lipstik kecantikan bibir, dengan ini bibir anda akan berwana terang tanpa lampu#Keterangan Produk-Berat:20g-expired Date:None-BahanProduk: Neon, pewarna Buatan, Perasa, dan vitamin E'),
+('PRO0071', 'Indofood Bumbu Rendang', 17500, 'indofood', '25', 'Penjelasan Produk-Produk sepesial lagi dari oriflame yaitu lipstik kecantikan bibir, dengan ini bibir anda akan berwana terang tanpa lampu#Keterangan Produk-Berat:20g-expired Date:None-BahanProduk: Neon, pewarna Buatan, Perasa, dan vitamin E');
 
 -- --------------------------------------------------------
 
@@ -344,7 +426,23 @@ INSERT INTO `rincian_produk` (`ID_RINCIAN`, `ID_PRODUK`, `JENIS_PRODUK`, `KATEGO
 ('RIN0017', 'PRO0017', 'HP', 'ELEKTRONIK', 'INEDIBLE'),
 ('RIN0018', 'PRO0018', 'TV', 'ELEKTRONIK', 'INEDIBLE'),
 ('RIN0019', 'PRO0019', 'BONEKA', 'TOYS', 'INEDIBLE'),
-('RIN0020', 'PRO0020', 'ACTION FIG', 'TOYS', 'INEDIBLE');
+('RIN0020', 'PRO0020', 'ACTION FIG', 'TOYS', 'INEDIBLE'),
+('RIN0022', 'PRO0056', 'SAYUR', 'MAKANAN', NULL),
+('RIN0023', 'PRO0057', 'SAYUR', 'MAKANAN', NULL),
+('RIN0024', 'PRO0058', 'SAYUR', 'MAKANAN', NULL),
+('RIN0025', 'PRO0059', 'SAYUR', 'MAKANAN', NULL),
+('RIN0026', 'PRO0060', 'SAYUR', 'MAKANAN', NULL),
+('RIN0027', 'PRO0061', 'SAYUR', 'MAKANAN', NULL),
+('RIN0028', 'PRO0062', 'SAYUR', 'MAKANAN', NULL),
+('RIN0029', 'PRO0063', 'SAYUR', 'MAKANAN', NULL),
+('RIN0030', 'PRO0064', 'SAYUR', 'MAKANAN', NULL),
+('RIN0031', 'PRO0065', 'MAKANAN BE', 'MAKANAN', NULL),
+('RIN0032', 'PRO0066', 'MAKANAN BE', 'MAKANAN', NULL),
+('RIN0033', 'PRO0067', 'MAKANAN BE', 'MAKANAN', NULL),
+('RIN0034', 'PRO0068', 'Bir', 'MINUMAN', NULL),
+('RIN0035', 'PRO0069', 'Bir', 'MINUMAN', NULL),
+('RIN0036', 'PRO0070', 'BUMBU', 'MAKANAN', NULL),
+('RIN0037', 'PRO0071', 'BUMBU', 'MAKANAN', NULL);
 
 -- --------------------------------------------------------
 
@@ -395,7 +493,8 @@ INSERT INTO `wishlist` (`ID_PRODUK`, `ID_CUSTOMER`, `ID_WISHLIST`, `SESSIONID`) 
 (NULL, NULL, 'UramlUZWLB', 'ZONd2E5hy4'),
 ('PRO0012', NULL, '1EMVBWryfe', 'ZONd2E5hy4'),
 ('PRO0019', NULL, 'IMY7mZdIAY', 'ZONd2E5hy4'),
-('PRO0011', NULL, 'RuVNxuRRwl', 'o9h7KtNsEc');
+('PRO0011', NULL, 'RuVNxuRRwl', 'o9h7KtNsEc'),
+('PRO0005', 'c0001', 'V5nvzjDZDC', 'lD3zeNkhvk');
 
 --
 -- Indexes for dumped tables
@@ -478,6 +577,15 @@ ALTER TABLE `voucher`
 ALTER TABLE `wishlist`
   ADD KEY `FK_RELATIONSHIP_2` (`ID_PRODUK`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `gambar`
+--
+ALTER TABLE `gambar`
+  MODIFY `ID_GAMBAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 --
 -- Constraints for dumped tables
 --

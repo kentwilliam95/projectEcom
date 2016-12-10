@@ -151,7 +151,7 @@ class Master extends CI_Controller
                     else
                     {
                          array_push($msg,"Gambar ".$i." Berhasil Upload");
-                         $gambarData = Array("ID_PRODUK"=>$Id,"NAMA_GAMBAR"=>$this->upload->data()["file_name"]);
+                         $gambarData = Array("ID_PRODUK"=>$fakta["Id"],"NAMA_GAMBAR"=>$this->upload->data()["file_name"]);
                          $this->Basic->insert("gambar",$gambarData);
                     }
                 }
