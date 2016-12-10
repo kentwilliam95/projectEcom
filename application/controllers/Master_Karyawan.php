@@ -38,8 +38,11 @@ class Master_Karyawan extends CI_Controller
      {
 			$fakta = $this->GetInputData();
 
-            $value = Array("ID_PEGAWAI"=>$fakta["Id"],"NAMA_PEGAWAI"=>$fakta["Nama"],"PASSWORD"=>$fakta["Pass"],"TANGGAL_LAHIR"=>$fakta["TglLahir"],"JENIS_KELAMIN"=>$fakta["Kelamin"],"PRIVILAGE"=>$fakta["Privilage"]);
-            $this->ModelKaryawan->Insert("pegawai",$value); 
+			if($fakta["Nama"] != "" && $fakta["Pass"] != "" && $fakta["TglLahir"] != "" && $fakta["Kelamin"] != "" && $fakta["Kelamin"] != "")
+			{
+				$value = Array("ID_PEGAWAI"=>$fakta["Id"],"NAMA_PEGAWAI"=>$fakta["Nama"],"PASSWORD"=>$fakta["Pass"],"TANGGAL_LAHIR"=>$fakta["TglLahir"],"JENIS_KELAMIN"=>$fakta["Kelamin"],"PRIVILAGE"=>$fakta["Privilage"]);
+				$this->ModelKaryawan->Insert("pegawai",$value); 
+			}
 			
             redirect("Master_Karyawan/index");
       }
@@ -74,9 +77,11 @@ class Master_Karyawan extends CI_Controller
     {
        $fakta = $this->GetInputData();
      
-       $value = Array("ID_PEGAWAI"=>$fakta["Id"],"NAMA_PEGAWAI"=>$fakta["Nama"],"PASSWORD"=>$fakta["Pass"],"TANGGAL_LAHIR"=>$fakta["TglLahir"],"JENIS_KELAMIN"=>$fakta["Kelamin"],"PRIVILAGE"=>$fakta["Privilage"]);
-       $this->ModelKaryawan->UpdateData("pegawai",$value,Array("ID_PEGAWAI"=>$fakta["Id"]));
-	   
+	   if($fakta["Nama"] != "" && $fakta["Pass"] != "" && $fakta["TglLahir"] != "" && $fakta["Kelamin"] != "" && $fakta["Kelamin"] != "")
+	   {
+		   $value = Array("ID_PEGAWAI"=>$fakta["Id"],"NAMA_PEGAWAI"=>$fakta["Nama"],"PASSWORD"=>$fakta["Pass"],"TANGGAL_LAHIR"=>$fakta["TglLahir"],"JENIS_KELAMIN"=>$fakta["Kelamin"],"PRIVILAGE"=>$fakta["Privilage"]);
+		   $this->ModelKaryawan->UpdateData("pegawai",$value,Array("ID_PEGAWAI"=>$fakta["Id"]));
+	   }
 	   redirect("Master_Karyawan/ListKaryawan");
     }
 	

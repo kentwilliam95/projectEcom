@@ -122,13 +122,24 @@ class MasterPromosi extends CI_Controller
 			{
 				array_push($msg,"Image Gagal Di upload : ".$this->upload->display_errors()." Silahkan Pergi Ke Update");
 			}
-			$value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"],"GAMBARPROMO"=>$this->upload->data()["file_name"]);
-            $this->ModelPromosi->Insert("hpromosi",$value); 
-			foreach($fakta["Id_pro"] as $a)
+			
+			if($fakta["Nama"] != "" && $fakta["TglMulai"] != "" && $fakta["TglAkhir"] != "" && $fakta["Deskrip"] != "" && $fakta["Id_pro"] != "" && $fakta["Diskon"] != "")
 			{
-				$value2 = Array("ID_DPROMOSI"=>$this->getAutogenPromosi(),"ID_PRODUK"=>$a,"IDHPROMOSI"=>$fakta["Id"],"DISKON_PROMOSI"=>$fakta["Diskon"]);
-				$this->ModelPromosi->Insert("promosi",$value2);
+				if($fakta["TglMulai"] < $fakta["TglAkhir"])
+				{
+					if(is_int($fakta["Diskon"]))
+					{
+						$value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"],"GAMBARPROMO"=>$this->upload->data()["file_name"]);
+						$this->ModelPromosi->Insert("hpromosi",$value); 
+						foreach($fakta["Id_pro"] as $a)
+						{
+							$value2 = Array("ID_DPROMOSI"=>$this->getAutogenPromosi(),"ID_PRODUK"=>$a,"IDHPROMOSI"=>$fakta["Id"],"DISKON_PROMOSI"=>$fakta["Diskon"]);
+							$this->ModelPromosi->Insert("promosi",$value2);
+						}
+					}
+				}
 			}
+			
 			$this->session->set_flashdata("item",$msg);
             redirect("MasterPromosi/index");
       }
@@ -243,15 +254,25 @@ class MasterPromosi extends CI_Controller
 				array_push($msg,"Image Gagal Di upload : ".$this->upload->display_errors()." Silahkan Pergi Ke Update");
 			}
 			
-		$value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"],"GAMBARPROMO"=>$this->upload->data()["file_name"]);
-        $this->ModelPromosi->UpdateData("hpromosi",$value,Array("IDHPROMOSI"=>$fakta["Id"]));
-		
-		$this->ModelPromosi->deleteData("promosi",array("IDHPROMOSI" => $fakta["Id"]));	
-		foreach($fakta["Id_pro"] as $a)
+		if($fakta["Nama"] != "" && $fakta["TglMulai"] != "" && $fakta["TglAkhir"] != "" && $fakta["Deskrip"] != "" && $fakta["Id_pro"] != "" && $fakta["Diskon"] != "")
 		{
-			$value2 = Array("ID_DPROMOSI"=>$this->getAutogenPromosi(),"ID_PRODUK"=>$a,"IDHPROMOSI"=>$fakta["Id"],"DISKON_PROMOSI"=>$fakta["Diskon"]);
-			$this->ModelPromosi->Insert("promosi",$value2);
+			if($fakta["TglMulai"] < $fakta["TglAkhir"])
+			{
+				if(is_int($fakta["Diskon"]))
+				{	
+					$value = Array("IDHPROMOSI"=>$fakta["Id"],"NAMA_PROMOSI"=>$fakta["Nama"],"TGL_MULAI_PROMOSI"=>$fakta["TglMulai"],"TGL_AKHIR_PROMOSI"=>$fakta["TglAkhir"],"STATUS"=>"Y","DESKRIPSI_PROMO"=>$fakta["Deskrip"],"GAMBARPROMO"=>$this->upload->data()["file_name"]);
+					$this->ModelPromosi->UpdateData("hpromosi",$value,Array("IDHPROMOSI"=>$fakta["Id"]));
+					
+					$this->ModelPromosi->deleteData("promosi",array("IDHPROMOSI" => $fakta["Id"]));	
+					foreach($fakta["Id_pro"] as $a)
+					{
+						$value2 = Array("ID_DPROMOSI"=>$this->getAutogenPromosi(),"ID_PRODUK"=>$a,"IDHPROMOSI"=>$fakta["Id"],"DISKON_PROMOSI"=>$fakta["Diskon"]);
+						$this->ModelPromosi->Insert("promosi",$value2);
+					}
+				}
+			}
 		}
+					
 	    $this->session->set_flashdata("item",$msg);
 		redirect("MasterPromosi/ListPromosi");
     }
