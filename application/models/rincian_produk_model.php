@@ -380,6 +380,30 @@ class Rincian_produk_model extends CI_Model {
 		$count = count($hasil);
 		return $count;
 	}
+	function cekEmail($user) 
+	{
+		$this->db->where('ID_CUSTOMER',$user);
+		$hasil= $this->db->get('CUSTOMER')->result();
+		
+		$count = count($hasil);
+		return $count;
+	}
 	
+	function insertCustomer($id,$nama,$pass,$alamat,$jk,$tgl,$kota,$negara,$kode,$telp) 
+	{		
+		$data= array(
+		   'ID_CUSTOMER' => $id,
+		   'NAMA_CUSTOMER'=>$nama,
+		   'PASSWORD'=>$pass,
+		   'ALAMAT_CUSTOMER'=>$alamat,
+		   'GENDER'=>$jk,
+		   'TANGGAL_LAHIR'=>$tgl,
+		   'KOTA'=>$kota,
+		   'NEGARA'=>$negara,
+		   'KODE_POSTAL'=>$kode,
+		   'TELEPHON'=>$telp
+		);
+		return $this->db->insert('customer',$data);
+	}
 }
 ?> ;
