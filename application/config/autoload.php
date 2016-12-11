@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('rincian_produk_model','GambarModel');
+$autoload['model'] = array('Rincian_produk_model','GambarModel');

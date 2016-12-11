@@ -10,18 +10,18 @@ class Chome extends CI_Controller {
 	public function index()
 	{
 		$data['log'] = $this->ceklog();
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['promo']=$this->rincian_produk_model->getBannerPromo();
-		$data['produkHot']=$this->rincian_produk_model->getHotProduk();
-		$data['promoYangBerlaku']=$this->rincian_produk_model->getPromo();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['promo']=$this->Rincian_produk_model->getBannerPromo();
+		$data['produkHot']=$this->Rincian_produk_model->getHotProduk();
+		$data['promoYangBerlaku']=$this->Rincian_produk_model->getPromo();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['produkHot']);
 		
 		
 		if($data['log'])
 		{
-			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+			$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 		}
 		else
 		{
@@ -48,16 +48,16 @@ class Chome extends CI_Controller {
 	public function searchProdukByPromo()
 	{
 		//Variabel milik daniel
-		$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+		$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 		$data['log'] = $this->ceklog();
 		
 		//Variabel de Fuhrer
-		$data['promo']=$this->rincian_produk_model->getPromoById($this->session->userdata('promoId'));
-		$data['hasil']=$this->rincian_produk_model->getProdukByPromo($data['promo']);
+		$data['promo']=$this->Rincian_produk_model->getPromoById($this->session->userdata('promoId'));
+		$data['hasil']=$this->Rincian_produk_model->getProdukByPromo($data['promo']);
 		$data['merek']="Hasil Penelusuran untuk Promo";
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
 		
 
@@ -74,17 +74,18 @@ class Chome extends CI_Controller {
 	public function searchProdukByMerk()
 	{
 		//Variabel milik daniel
-		$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+		$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 		$data['log'] = $this->ceklog();
 		
 		//Variabel milik Der Fuhrer
-		$data['hasil']=$this->rincian_produk_model->searchProdukByMerk($this->session->userdata('filterSearch'));
-		$data['merek']=$this->session->userdata('filterSearch');
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$arr =  explode("|",$this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByMerk($arr[0],$arr[1]);
+		$data['merek']=$arr[0];
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		
 		if($data['log'] == true){
 		}
@@ -98,16 +99,16 @@ class Chome extends CI_Controller {
 	public function searchProdukByNama()
 	{
 		$data['log'] = $this->ceklog();
-		$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+		$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 	
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		if($data['log'] == true){
 		}
 		else
@@ -127,22 +128,22 @@ class Chome extends CI_Controller {
 	
 	public function showProductDetail()
 	{
-		$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+		$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 		$data['log'] = $this->ceklog();
 	
 		
-		$data['hasil']=$this->rincian_produk_model->selectById($this->session->userdata('idBarang'));		
-		$data['barang']=$this->rincian_produk_model->getProduk();
+		$data['hasil']=$this->Rincian_produk_model->selectById($this->session->userdata('idBarang'));		
+		$data['barang']=$this->Rincian_produk_model->getProduk();
 		$data['gambar']=$this->GambarModel->selectById($this->session->userdata('idBarang'));		
 		
-		$data['other']=$this->rincian_produk_model->selectOther($this->session->userdata('idBarang'));
-		$data['gambarOther']=$this->rincian_produk_model->selectOtherImage($data['other']);
+		$data['other']=$this->Rincian_produk_model->selectOther($this->session->userdata('idBarang'));
+		$data['gambarOther']=$this->Rincian_produk_model->selectOtherImage($data['other']);
 		
-		$data['kategoriBarang']=$this->rincian_produk_model->getKategoriProduk($this->session->userdata('idBarang'))->KATEGORI_PRODUK;
-		$temp = $this->rincian_produk_model->getKategori();
-		$data['kategori'] = $this->rincian_produk_model->getTotalItem($temp);
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['kategoriBarang']=$this->Rincian_produk_model->getKategoriProduk($this->session->userdata('idBarang'))->KATEGORI_PRODUK;
+		$temp = $this->Rincian_produk_model->getKategori();
+		$data['kategori'] = $this->Rincian_produk_model->getTotalItem($temp);
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		
 		if($data['log'] == true){
 		}
@@ -165,23 +166,23 @@ class Chome extends CI_Controller {
 			$this->session->set_userdata('sessionid',$this->generateRandomString());
 		}
 		
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		$data['log'] = $this->ceklog();
-		$data['cekwish'] = $this->rincian_produk_model->cekwish($data['idproduk'],$this->session->userdata('ID_CUSTOMER'));
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['cekwish'] = $this->Rincian_produk_model->cekwish($data['idproduk'],$this->session->userdata('ID_CUSTOMER'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 		
 		if(isset($_POST["add"]))
 		{
 			if($data['cekwish']==0)
 			{
-				$this->rincian_produk_model->insertWish($data['idproduk'],$this->session->userdata('ID_CUSTOMER'),$data['idwish'],$this->session->userdata('sessionid'));	
+				$this->Rincian_produk_model->insertWish($data['idproduk'],$this->session->userdata('ID_CUSTOMER'),$data['idwish'],$this->session->userdata('sessionid'));	
 			}
 		}
 		if($data['log'] == true){
@@ -197,22 +198,22 @@ class Chome extends CI_Controller {
 	{
 		$data['wishlist']="";
 		$data['log'] = $this->ceklog();
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		if($data['log'] == true){
-			$data['wishlist']= $this->rincian_produk_model->getWishlistById($this->session->userdata('ID_CUSTOMER'));
+			$data['wishlist']= $this->Rincian_produk_model->getWishlistById($this->session->userdata('ID_CUSTOMER'));
 		
-			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+			$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 		}
 		else
 		{
-			$data['wishlist']= $this->rincian_produk_model->getWishlistBySession($this->session->userdata('sessionid'));
+			$data['wishlist']= $this->Rincian_produk_model->getWishlistBySession($this->session->userdata('sessionid'));
 			$data['isicart'] = 0;
 		}
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['wishlist']);
@@ -222,24 +223,24 @@ class Chome extends CI_Controller {
 	{
 		$data['wishlist']="";
 		$data['log'] = $this->ceklog();
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		if($data['log'] == true){
-			$this->rincian_produk_model->deleteWish($this->input->post('idwish'),$this->session->userdata('ID_CUSTOMER'));
-			$data['wishlist']= $this->rincian_produk_model->getWishlistById($this->session->userdata('ID_CUSTOMER'));
+			$this->Rincian_produk_model->deleteWish($this->input->post('idwish'),$this->session->userdata('ID_CUSTOMER'));
+			$data['wishlist']= $this->Rincian_produk_model->getWishlistById($this->session->userdata('ID_CUSTOMER'));
 		
-			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+			$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 		}
 		else
 		{
-			$this->rincian_produk_model->deleteWish($this->input->post('idwish'),null);
-			$data['wishlist']= $this->rincian_produk_model->getWishlistBySession($this->session->userdata('sessionid'));
+			$this->Rincian_produk_model->deleteWish($this->input->post('idwish'),null);
+			$data['wishlist']= $this->Rincian_produk_model->getWishlistBySession($this->session->userdata('sessionid'));
 			$data['isicart'] = 0;
 		}
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['wishlist']);
@@ -249,24 +250,24 @@ class Chome extends CI_Controller {
 	public function basket()
 	{
 		$nama = $this->input->post('nama_produk');
-		$data['nama_produk'] = $this->rincian_produk_model->getProdukId($nama);
+		$data['nama_produk'] = $this->Rincian_produk_model->getProdukId($nama);
 		$data['idproduk'] = '';
 		foreach($data['nama_produk'] as $r)
 		{
 			$data['idproduk'] = $r->id_produk;
 		}
 		$data['idshop'] = $this->generateRandomString();
-		$data['jumlahcart'] = $this->rincian_produk_model->getprodukjumlahcart($data['idproduk'],$this->session->userdata('ID_CUSTOMER'));
+		$data['jumlahcart'] = $this->Rincian_produk_model->getprodukjumlahcart($data['idproduk'],$this->session->userdata('ID_CUSTOMER'));
 		$data['log'] = $this->ceklog();
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		
 		if($data['jumlahcart']==null)
 		{
@@ -275,16 +276,16 @@ class Chome extends CI_Controller {
 		if($data['log'] == true){
 			if($data['jumlahcart']==0)
 			{
-				$this->rincian_produk_model->insertCart($data['idshop'],$data['idproduk'],$this->session->userdata('ID_CUSTOMER'),$data['jumlahcart']+1);
+				$this->Rincian_produk_model->insertCart($data['idshop'],$data['idproduk'],$this->session->userdata('ID_CUSTOMER'),$data['jumlahcart']+1);
 			}
 			else
 			{
-				$this->rincian_produk_model->updateCart($data['idproduk'],$this->session->userdata('ID_CUSTOMER'),$data['jumlahcart']+1);
+				$this->Rincian_produk_model->updateCart($data['idproduk'],$this->session->userdata('ID_CUSTOMER'),$data['jumlahcart']+1);
 			}
-			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+			$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 			if($this->input->post('idwish')!=null)
 			{
-				$this->rincian_produk_model->deleteWish($this->input->post('idwish'),$this->session->userdata('ID_CUSTOMER'));
+				$this->Rincian_produk_model->deleteWish($this->input->post('idwish'),$this->session->userdata('ID_CUSTOMER'));
 			}
 			$this->load->view('Customer/searchFilter.php',$data);
 		}
@@ -298,19 +299,19 @@ class Chome extends CI_Controller {
 	public function deletebasket()
 	{
 		$data['log'] = $this->ceklog();
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		if($data['log'] == true){
-			$this->rincian_produk_model->deletecart($this->input->post('id_produk'),$this->session->userdata('ID_CUSTOMER'));
-			$data['cart'] = $this->rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
+			$this->Rincian_produk_model->deletecart($this->input->post('id_produk'),$this->session->userdata('ID_CUSTOMER'));
+			$data['cart'] = $this->Rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
 			
-			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+			$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 			$this->load->view('Customer/basket.html',$data);
 		}
 		else
@@ -339,20 +340,20 @@ class Chome extends CI_Controller {
 		
 		for($i=0;$i<count($jumlah);$i++)
 		{
-			$this->rincian_produk_model->updateCart($produks[$i],$this->session->userdata('ID_CUSTOMER'),$jumlah[$i]);
+			$this->Rincian_produk_model->updateCart($produks[$i],$this->session->userdata('ID_CUSTOMER'),$jumlah[$i]);
 		}
 		
 		$data['log'] = $this->ceklog();
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		if($data['log'] == true){
 			
-			$data['cart'] = $this->rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
+			$data['cart'] = $this->Rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
 			foreach($data['cart'] as $a)
 			{
 				foreach($data['promo'] as $k)
@@ -363,7 +364,7 @@ class Chome extends CI_Controller {
 					}
 				}
 			}
-			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+			$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 			$this->load->view('Customer/basket.html',$data);
 		}
 		else
@@ -377,17 +378,17 @@ class Chome extends CI_Controller {
 	public function tobasket()
 	{
 		$data['log'] = $this->ceklog();
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		
 		if($data['log'] == true){
-			$data['cart'] = $this->rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
+			$data['cart'] = $this->Rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
 			foreach($data['cart'] as $a)
 			{
 				foreach($data['promo'] as $k)
@@ -398,7 +399,7 @@ class Chome extends CI_Controller {
 					}
 				}
 			}
-			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+			$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 			$this->load->view('Customer/basket.html',$data);
 		}
 		else
@@ -430,24 +431,24 @@ class Chome extends CI_Controller {
 		for($i=0;$i<count($jumlah);$i++)
 		{
 			
-			$this->rincian_produk_model->updateCart($produks[$i],$this->session->userdata('ID_CUSTOMER'),$jumlah[$i]);
-			$tempstok = $this->rincian_produk_model->getStokProduk($produks[$i]);
+			$this->Rincian_produk_model->updateCart($produks[$i],$this->session->userdata('ID_CUSTOMER'),$jumlah[$i]);
+			$tempstok = $this->Rincian_produk_model->getStokProduk($produks[$i]);
 			if($jumlah[$i] > $tempstok)
 			{
-				$namaproduk .= $this->rincian_produk_model->getNamaProdukById($produks[$i]). ", ";
+				$namaproduk .= $this->Rincian_produk_model->getNamaProdukById($produks[$i]). ", ";
 			}
 		}
 		$data['log'] = $this->ceklog();
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		if($data['log'] == true){
 			
-			$data['cart'] = $this->rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
+			$data['cart'] = $this->Rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
 			
 			foreach($data['cart'] as $a)
 			{
@@ -459,7 +460,7 @@ class Chome extends CI_Controller {
 					}
 				}
 			}
-			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));	
+			$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));	
 			if($namaproduk=="")
 			{
 				$this->load->view('Customer/checkout4.html',$data);
@@ -479,9 +480,9 @@ class Chome extends CI_Controller {
 	}
 	public function dopurchase()
 	{
-		$cart = $this->rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
+		$cart = $this->Rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
 		
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		
 		$this->paypal_lib->add_field("cmd","_cart");
 		$this->paypal_lib->add_field("upload",1);
@@ -512,16 +513,16 @@ class Chome extends CI_Controller {
         $this->paypal_lib->paypal_auto_form();
 	}
     public function paypal_success() {
-		$cart = $this->rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
+		$cart = $this->Rincian_produk_model->getProdukById($this->session->userdata('ID_CUSTOMER'));
 		$totalHjual= 0;
 		
 		$tgl = date("dmy");
-		$noHjual = $this->rincian_produk_model->getHjualId($tgl);
+		$noHjual = $this->Rincian_produk_model->getHjualId($tgl);
 		$idHjual = $tgl.$noHjual;
 		
-		$surat = "SJ".$this->rincian_produk_model->getSJId();
+		$surat = "SJ".$this->Rincian_produk_model->getSJId();
 		
-		$data['promo']=$this->rincian_produk_model->getPromo();
+		$data['promo']=$this->Rincian_produk_model->getPromo();
 		foreach($cart as $a)
 		{
 			foreach($data['promo'] as $k)
@@ -533,27 +534,27 @@ class Chome extends CI_Controller {
 			}
 			$totalHjual += $a->JUMLAH * $a->HARGA_JUAL;
 		}
-		$this->rincian_produk_model->insertHjual($idHjual, $totalHjual, $surat, 'D');
+		$this->Rincian_produk_model->insertHjual($idHjual, $totalHjual, $surat, 'D');
 		
 		foreach($cart as $a)
 		{
-			$noDjual = $this->rincian_produk_model->getDjualId($tgl);
+			$noDjual = $this->Rincian_produk_model->getDjualId($tgl);
 			$idDjual = $tgl.$noDjual;
-			$tempstok = $this->rincian_produk_model->getStokProduk($a->ID_PRODUK);
+			$tempstok = $this->Rincian_produk_model->getStokProduk($a->ID_PRODUK);
 			$stok = $tempstok - $a->JUMLAH;
-			$this->rincian_produk_model->updateStokProduk($a->ID_PRODUK,$stok);
-			$this->rincian_produk_model->insertDjual($idDjual, $idHjual, $a->ID_PRODUK, $a->NAMA_PRODUK, $a->HARGA_JUAL, $a->JUMLAH, ($a->HARGA_JUAL*$a->JUMLAH));
+			$this->Rincian_produk_model->updateStokProduk($a->ID_PRODUK,$stok);
+			$this->Rincian_produk_model->insertDjual($idDjual, $idHjual, $a->ID_PRODUK, $a->NAMA_PRODUK, $a->HARGA_JUAL, $a->JUMLAH, ($a->HARGA_JUAL*$a->JUMLAH));
 		}
 		
 		$data['log'] = $this->ceklog();
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
 		if($data['log'])
 		{
 			
-			$this->rincian_produk_model->clearCart($this->session->userdata('ID_CUSTOMER'));
-			$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+			$this->Rincian_produk_model->clearCart($this->session->userdata('ID_CUSTOMER'));
+			$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
 		}
 		else
 		{
@@ -565,21 +566,21 @@ class Chome extends CI_Controller {
 	public function detail()
 	{
 		$nama = $this->input->post('nama_produk');
-		$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
-		$data['nama_produk'] = $this->rincian_produk_model->getProdukId($nama);
+		$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+		$data['nama_produk'] = $this->Rincian_produk_model->getProdukId($nama);
 		$data['idproduk'] = '';
 		foreach($data['nama_produk'] as $r)
 		{
 			$data['idproduk'] = $r->id_produk;
 		}
 		$data['log'] = $this->ceklog();
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
 		$data['gambar']=$this->GambarModel->selectFilteredProduct($data['hasil']);
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
 		if($data['log'] == true){
 			$this->load->view('Customer/searchFilter.php',$data);
 		}
@@ -594,20 +595,20 @@ class Chome extends CI_Controller {
 	{
 		$data['email'] = $this->input->post('email');
 		$data['pass'] = $this->input->post('pass');
-		$log = $this->rincian_produk_model->cekLogin($data['email'],$data['pass']);
-		$logstaff = $this->rincian_produk_model->cekLoginStaff($data['email'],$data['pass']);
-		$data['isicart'] = $this->rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$log = $this->Rincian_produk_model->cekLogin($data['email'],$data['pass']);
+		$logstaff = $this->Rincian_produk_model->cekLoginStaff($data['email'],$data['pass']);
+		$data['isicart'] = $this->Rincian_produk_model->getTotalJumlahCart($this->session->userdata('ID_CUSTOMER'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
 		if($log==1)
 		{
 			$data['log'] = true;
 			$this->session->set_userdata('ID_CUSTOMER',$data['email']);
-			$this->rincian_produk_model->updateWish($data['email'],$this->session->userdata('sessionid'));
+			$this->Rincian_produk_model->updateWish($data['email'],$this->session->userdata('sessionid'));
 			redirect('chome/index','refresh');
 		}
 		else if ($logstaff==1)
@@ -624,12 +625,12 @@ class Chome extends CI_Controller {
 	public function Logout()
 	{
 		
-		$data['hasil']=$this->rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
+		$data['hasil']=$this->Rincian_produk_model->searchProdukByNama($this->session->userdata('filterSearch'));
 		$temp = $this->session->userdata('filterSearch');
 		$data['merek']="Hasil Penelusuran untuk '".$temp ."'";
-		$data['barang']=$this->rincian_produk_model->getProduk();
-		$data['kategori'] = $this->rincian_produk_model->getKategori();
-		$data['subkategori'] = $this->rincian_produk_model->getSubKategori();
+		$data['barang']=$this->Rincian_produk_model->getProduk();
+		$data['kategori'] = $this->Rincian_produk_model->getKategori();
+		$data['subkategori'] = $this->Rincian_produk_model->getSubKategori();
 		
 		$data['log'] = false;
 		$this->session->unset_userdata('ID_CUSTOMER');

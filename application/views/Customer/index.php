@@ -183,7 +183,7 @@
 												<ul>
 													<?php foreach($barang as $b){?>
 													<?php if($b->kategori_produk==$k->kategori_produk && $b->jenis_produk ==$s->jenis_produk){ ?>
-													<li><a class="linkProduk" id="<?php echo $b->merek_produk;?>"href=""><?php echo $b->merek_produk;?></a>
+													<li><a class="linkProduk" id="<?php echo $b->merek_produk."|".$b->jenis_produk;?>"href=""><?php echo $b->merek_produk;?></a>
 													</li>
 													<?php } ?>
 													<?php } ?>

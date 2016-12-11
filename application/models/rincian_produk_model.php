@@ -140,10 +140,11 @@ class Rincian_produk_model extends CI_Model {
 		
 	}
 	
-	function searchProdukByMerk($merk)
+	function searchProdukByMerk($merk,$tipe)
 	{
-		$this->db->where('merek_produk',$merk);
-		return $this->db->get('produk')->result();
+		
+		return $this->db->query("select * from produk where id_produk in(select id_produk from rincian_produk where jenis_produk='".$tipe."') and merek_produk='".$merk."'")->result();
+		
 	}
 	
 	
