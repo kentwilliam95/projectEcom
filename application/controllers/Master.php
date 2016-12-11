@@ -141,7 +141,7 @@ class Master extends CI_Controller
 			$this->Basic->insert("rincian_produk",$valrincian);
             for($i=0; $i<count($arrGambar); $i++)
             {
-                $this->load->library('upload', $this->getConfig($Id));
+                $this->load->library('upload', $this->getConfig($fakta["Id"]));
                 if($arrGambar[$i] !="")
                 {
                     if(!$this->upload->do_upload($userfiles[$i]))

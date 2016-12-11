@@ -648,4 +648,12 @@ class Chome extends CI_Controller {
 		}
 		return $data['log'];
 	}
+
+	function Akun()
+	{
+		$idcust = $this->session->userdata('ID_CUSTOMER');
+		
+		$data["datacust"]=$this->Basic->getDataWhere("customer",array("ID_CUSTOMER" => $idcust));
+		$this->load->view("Customer/customer-account",$data);
+	}
 }
