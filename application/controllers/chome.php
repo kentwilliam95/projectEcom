@@ -591,6 +591,52 @@ class Chome extends CI_Controller {
 	redirect('chome/index','refresh');
 		}
 	}
+	public function toregister()
+	{
+		$data['nama'] = "";
+		$data['email'] = "";
+		$data['alamat'] = "";
+		$data['kota'] = "";
+		$data['negara'] = "";
+		$data['kodepost'] = "";
+		$data['notelp'] = "";
+		$this->load->view('Customer/register.html',$data);
+	}
+	public function register()
+	{
+		$data['nama'] = ($this->input->post('nama'));
+		$pass = ($this->input->post('pass'));
+		$cpass = ($this->input->post('cpass'));
+		$data['email'] = ($this->input->post('email'));
+		$data['alamat'] = ($this->input->post('alamat'));
+		$jk = ($this->input->post('jk'));
+		$tgl = ($this->input->post('tgllahir'));
+		$data['kota'] = ($this->input->post('kota'));
+		$data['negara'] = ($this->input->post('negara'));
+		$data['kodepost'] = ($this->input->post('kodepost'));
+		$data['notelp'] = ($this->input->post('notelp'));
+		$ada = $this->rincian_produk_model->cekEmail($data['email']);
+		if($ada>0)
+		{
+			echo "<script> alert('Email sudah terdaftar'); </script>";
+			$data['email']="";
+			$this->load->view('Customer/register.html',$data);
+		}
+		else
+		{
+			if($pass==$cpass)
+			{
+				$this->rincian_produk_model->insertCustomer($data['email'],$data['nama'],$pass,$data['alamat'],$jk,$tgl,$data['kota'],$data['negara'],$data['kodepost'],$data['notelp']);
+				echo "<script> alert('Register Berhasil !'); </script>";
+				redirect('chome/index','refresh');
+			}
+			else
+			{
+				echo "<script> alert('Password dan Confirm Password tidak sama !'); </script>";
+				$this->load->view('Customer/register.html',$data);
+			}
+		}
+	}
 	public function Login()
 	{
 		$data['email'] = $this->input->post('email');
