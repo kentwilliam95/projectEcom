@@ -604,6 +604,7 @@ class Chome extends CI_Controller {
 	}
 	public function register()
 	{
+		$this->load->model("rincian_produk_model");
 		$data['nama'] = ($this->input->post('nama'));
 		$pass = ($this->input->post('pass'));
 		$cpass = ($this->input->post('cpass'));
