@@ -16,6 +16,7 @@ class MasterPromosi extends CI_Controller
 		$data["gambar"] = array();
 		$data["Autogen"] = $this->getAutogenProduk(); 
 		$data["produkx"] = $this->ModelPromosi->getData("produk");
+		$promo = $this->ModelPromosi->getData("hpromosi");
 		
 		$produk = $this->ModelPromosi->getData2("produk");
         $data["hasil"] = array();
@@ -60,6 +61,15 @@ class MasterPromosi extends CI_Controller
 			
         }
 		
+		foreach($promo as $pro)
+		{
+			if($pro->TGL_AKHIR_PROMOSI < date("Y-m-d"))
+			{
+				$value = Array("STATUS"=>"N");
+				$this->ModelPromosi->UpdateData("hpromosi",$value,Array("IDHPROMOSI"=>$pro->IDHPROMOSI));
+			}
+		}
+		
 		//print_r($data["hasil"][0][2]);
 		$data['b_url'] = base_url();
 		$this->load->view("HeaderMaster");
@@ -73,6 +83,15 @@ class MasterPromosi extends CI_Controller
 		$hasil=array();
 		$temp = array();
 		$diskon = 0;
+			
+		foreach($HasilVendor as $pro)
+		{
+			if($pro->TGL_AKHIR_PROMOSI < date("Y-m-d"))
+			{
+				$value = Array("STATUS"=>"N");
+				$this->ModelPromosi->UpdateData("hpromosi",$value,Array("IDHPROMOSI"=>$pro->IDHPROMOSI));
+			}
+		}	
 			
 		foreach($HasilVendor as $row)
 		{
