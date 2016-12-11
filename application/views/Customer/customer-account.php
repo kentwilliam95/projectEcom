@@ -211,47 +211,19 @@
                         <p class="lead">Change your personal details or your password here.</p>
                         <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
 
-                        <h3>Change password</h3>
-
-                        <form>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="password_old">Old password</label>
-                                        <input type="password" class="form-control" id="password_old">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="password_1">New password</label>
-                                        <input type="password" class="form-control" id="password_1">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="password_2">Retype new password</label>
-                                        <input type="password" class="form-control" id="password_2">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.row -->
-
-                            <div class="col-sm-12 text-center">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save new password</button>
-                            </div>
-                        </form>
-
+                        
+                       <?php echo form_open("Chome/Akun2")?>
+                            
+						<input type="hidden" name="id" value="<?php echo $datacust[0]->ID_CUSTOMER?>" />
                         <hr>
 
                         <h3>Personal details</h3>
-                        <form>
+                        
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="firstname">Full Name</label>
-                                        <input type="text" class="form-control" id="firstname">
+                                        <input type="text" class="form-control" name="nama" id="firstname" value="<?php echo $datacust[0]->NAMA_CUSTOMER?>">
                                     </div>
                                 </div>
                             </div>
@@ -262,7 +234,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="street">Alamat Customer</label>
-                                        <input type="text" class="form-control" id="street">
+                                        <input type="text" class="form-control"  name="alamat" id="street" value="<?php echo $datacust[0]->ALAMAT_CUSTOMER?>">
                                     </div>
                                 </div>
                             </div>
@@ -273,26 +245,26 @@
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group">
                                         <label for="zip">ZIP</label>
-                                        <input type="text" class="form-control" id="zip">
+                                        <input type="text" class="form-control" id="zip"  pattern="[0-9.]+" name="zip"  value="<?php echo $datacust[0]->KODE_POSTAL?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group">
                                         <label for="state">Kota</label>
-                                        <input type="text" class="form-control" id="state" /            >
+                                        <input type="text" class="form-control" id="state" name="kota" value="<?php echo $datacust[0]->KOTA?>" />
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="form-group">
                                         <label for="country">Negara</label>
-                                        <input type="text" class="form-control" id="country"/>
+                                        <input type="text" class="form-control" id="country" name="negara" value="<?php echo $datacust[0]->NEGARA?>"/>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="phone">Telephone</label>
-                                        <input type="text" class="form-control" id="phone">
+                                        <input type="text" class="form-control" id="phone"  pattern="[0-9.]+" name="telepon" value="<?php echo $datacust[0]->TELEPHON?>"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 text-center">

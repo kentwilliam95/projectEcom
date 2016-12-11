@@ -651,9 +651,29 @@ class Chome extends CI_Controller {
 
 	function Akun()
 	{
+		$this->load->model("Basic");
 		$idcust = $this->session->userdata('ID_CUSTOMER');
-		
+		if(empty($idcust))
+		{redirect("Chome/index");}
 		$data["datacust"]=$this->Basic->getDataWhere("customer",array("ID_CUSTOMER" => $idcust));
 		$this->load->view("Customer/customer-account",$data);
+	}
+	function Akun2()
+	{
+		//buat update data customer
+		$this->load->model("Basic");
+		$nama = $this->input->post('nama');
+		$zip = $this->input->post('zip');
+		$kota = $this->input->post('kota');
+		$negara = $this->input->post('negara');
+		$telepon = $this->input->post('telepon');
+		$id = $this->input->post('id');
+		$alamat = $this->input->post('alamat');
+		
+		$data = array("NAMA_CUSTOMER" =>$nama,"ALAMAT_CUSTOMER" =>$alamat,"KOTA" =>$kota,"NEGARA" =>$negara,"KODE_POSTAL" =>$zip,"TELEPHON" =>$telepon);
+		$kondisi = array("ID_CUSTOMER" => $id);
+		
+		$this->Basic->UpdateData("customer",$data,$kondisi);
+		redirect("Chome/Akun");
 	}
 }
