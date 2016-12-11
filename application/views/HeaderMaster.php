@@ -7,6 +7,8 @@
 	<script src="<?php echo base_url('assets/bs/js/jquery.dataTables.min.js')?>"></script>
 	<script src="<?php echo base_url('assets/bs/js/bootstrap-datetimepicker.js')?>"></script>
 	<script src="<?php echo base_url('assets/bs/js/locales/bootstrap-datetimepicker.fr.js')?>"></script>
+	<script src="<?php echo base_url('fusioncharts/fusioncharts.js')?>"></script>
+	<script src="<?php echo base_url('fusioncharts/fusioncharts.charts.js')?>"></script>
 	<style>
 		.color1
 		{
@@ -28,6 +30,7 @@
 					<li><a href="<?php echo site_url("Master_Karyawan/ListKaryawan")?>">List Karyawan</a></li>
 					<li><a href="<?php echo site_url("MasterPromosi/index")?>">Master Promosi</a></li>
 					<li><a href="<?php echo site_url("MasterPromosi/ListPromosi")?>">List Promosi</a></li>
+					<li><a href="<?php echo site_url("Report/index")?>">Report</a></li>
 					<li><a href="<?php echo site_url("Chome/logout")?>">Log Out</a></li>
 				</ul>
 			</div>
