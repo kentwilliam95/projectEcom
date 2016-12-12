@@ -11,6 +11,7 @@ class Master extends CI_Controller
     }
     function index()
     {
+		$this->CekUser();
         $data["msg"] = Array();
         if(!is_null($this->session->flashdata("item")))
         {
@@ -184,5 +185,11 @@ class Master extends CI_Controller
 		  $bahan["jenis"] = $this->input->post("jenis",true);
           return $bahan;
       }
+	  function CekUser()
+	{
+		$idcust = $this->session->userdata('ID_CUSTOMER');
+		if(empty($idcust))
+		{redirect("Chome/index");}
+	}
 }
 ?>

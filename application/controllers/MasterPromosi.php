@@ -12,6 +12,7 @@ class MasterPromosi extends CI_Controller
 
 	function index()
 	{
+		$this->CekUser();
 		$data["msg"] = $this->session->flashdata("item");
 		$data["gambar"] = array();
 		$data["Autogen"] = $this->getAutogenProduk(); 
@@ -311,11 +312,18 @@ class MasterPromosi extends CI_Controller
 	
 	function DeletePromosi($value)
     {
+		$this->CekUser();
         $data = array("IDHPROMOSI" => $value);
 		$this->ModelPromosi->deleteData("promosi",$data);
         $this->ModelPromosi->deleteData("hpromosi",$data);
-		
 		redirect("MasterPromosi/ListPromosi");
     }
+	
+	function CekUser()
+	{
+		$idcust = $this->session->userdata('ID_CUSTOMER');
+		if(empty($idcust))
+		{redirect("Chome/index");}
+	}
 }
 ?>

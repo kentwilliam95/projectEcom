@@ -8,7 +8,7 @@ class Rincian_produk_model extends CI_Model {
 	
 	function getPromo()
 	{
-		return $this->db->query("SELECT * FROM PROMOSI WHERE IDHPROMOSI IN (SELECT IDHPROMOSI FROM HPROMOSI WHERE `STATUS`  = 'Y');")->result();
+		return $this->db->query("SELECT * FROM promosi WHERE IDHPROMOSI IN (SELECT IDHPROMOSI FROM hpromosi WHERE `STATUS`  = 'Y');")->result();
 		
 	}	
 	
@@ -26,7 +26,7 @@ class Rincian_produk_model extends CI_Model {
 	
 	function getPromoById($id)
 	{
-		return $this->db->query("SELECT * FROM PROMOSI WHERE IDHPROMOSI IN (SELECT IDHPROMOSI FROM HPROMOSI WHERE `TGL_AKHIR_PROMOSI` < CURDATE()) and IDHPROMOSI ='".$id."'" )->result();
+		return $this->db->query("SELECT * FROM promosi WHERE IDHPROMOSI IN (SELECT IDHPROMOSI FROM hpromosi where STATUS='Y') and IDHPROMOSI ='".$id."'" )->result();
 		
 		
 	}
