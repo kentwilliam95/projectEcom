@@ -156,9 +156,21 @@ class MasterPromosi extends CI_Controller
 							$this->ModelPromosi->Insert("promosi",$value2);
 						}
 					}
+					else
+					{
+						array_push($msg,"Data Diskon Tidak ada");
+					}
 				}
+				else
+				{
+					array_push($msg,"Tanggal Mulai tidak boleh lebih kecil dari tanggal akhir");
+				}
+				
 			}
-			
+			else
+			{
+				array_push($msg,"Data Kosong");
+			}
 			$this->session->set_flashdata("item",$msg);
             redirect("MasterPromosi/index");
       }
