@@ -329,7 +329,7 @@
 										
 										<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
 											<input type="hidden" name="id_produk" value="<?php echo $hasil->ID_PRODUK; ?>" />
-											<button class="btn btn-primary">Add to Wishlist</button>
+											<button class="btn btn-primary" name='add'>Add to Wishlist</button>
 										</form>
 									</p>
 
@@ -371,7 +371,7 @@
 										
 										<form style="text-align:center" method="post" accept-charset="utf-8" action="<?php echo site_url('chome/addwish'); ?>">
 											<input type="hidden" name="id_produk" value="<?php echo $hasil->ID_PRODUK; ?>" />
-											<button class="btn btn-primary">Add to Wishlist</button>
+											<button class="btn btn-primary" name='add'>Add to Wishlist</button>
 										</form>
 									</p>
 
