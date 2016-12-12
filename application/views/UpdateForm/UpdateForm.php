@@ -47,7 +47,7 @@ $(document).ready(function(){
             <div class="form-group">
                 <label class="control-label col-sm-2">Harga Produk: </label>
                 <div class="col-sm-4">
-                    <input type="text" value="<?php echo $detail->HARGA_JUAL?>" name="Harga" class="form-control"/>
+                    <input type="text" value="<?php echo $detail->HARGA_JUAL?>" name="Harga"  pattern="[0-9.]+" class="form-control"/>
                 </div>         
             </div>
             <div class="form-group">
@@ -59,7 +59,7 @@ $(document).ready(function(){
             <div class="form-group">
                 <label class="control-label col-sm-2">Stok Produk: </label>
                 <div class="col-sm-4">
-                    <input type="text" name="Stok" value="<?php echo $detail->STOK?>" class="form-control"/>
+                    <input type="text" name="Stok" pattern="[0-9.]+" value="<?php echo $detail->STOK?>" class="form-control"/>
                 </div>         
             </div>
             <div class="form-group">

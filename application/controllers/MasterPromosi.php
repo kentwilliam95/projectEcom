@@ -141,7 +141,7 @@ class MasterPromosi extends CI_Controller
 			{
 				array_push($msg,"Image Gagal Di upload : ".$this->upload->display_errors()." Silahkan Pergi Ke Update");
 			}
-			
+			$fakta["Diskon"] = intval($fakta["Diskon"]);
 			if($fakta["Nama"] != "" && $fakta["TglMulai"] != "" && $fakta["TglAkhir"] != "" && $fakta["Deskrip"] != "" && $fakta["Id_pro"] != "" && $fakta["Diskon"] != "")
 			{
 				if($fakta["TglMulai"] < $fakta["TglAkhir"])
@@ -155,10 +155,11 @@ class MasterPromosi extends CI_Controller
 							$value2 = Array("ID_DPROMOSI"=>$this->getAutogenPromosi(),"ID_PRODUK"=>$a,"IDHPROMOSI"=>$fakta["Id"],"DISKON_PROMOSI"=>$fakta["Diskon"]);
 							$this->ModelPromosi->Insert("promosi",$value2);
 						}
+						array_push($msg,"Data Berhasil Dimasukkan");
 					}
 					else
 					{
-						array_push($msg,"Data Diskon Tidak ada");
+						array_push($msg,"Data Diskon Salah format");
 					}
 				}
 				else
