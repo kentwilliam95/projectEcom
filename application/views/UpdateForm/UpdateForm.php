@@ -73,7 +73,7 @@ $(document).ready(function(){
                 <?php for($i=0;$i<count($path);$i++)
                 {?>
                     <div class="col-sm-2">
-                      <img class="imgres" src="<?php echo base_url('produk/'.$path[$i]['NAMA_GAMBAR'])?>" style="width:100px;height:100px;">
+                      <img class="imgres" src="<?php echo base_url('Produk/'.$path[$i]['NAMA_GAMBAR'])?>" style="width:100px;height:100px;">
                       <input class="img1" type="file" name="userfile<?php echo $i+1?>" size="20" class="form-control" />
                       <input type="hidden" name="Idg<?php echo $i?>" value="<?php echo $path[$i]["ID_GAMBAR"]?>" name="Idh">
                      </div>

@@ -39,7 +39,7 @@ class Master extends CI_Controller
 		$data["produk"] = json_encode($hasil);
 		
         $this->load->view("HeaderMaster");
-        $this->load->view("listproduk",$data);
+        $this->load->view("ListProduk",$data);
     }
     function DeleteProduk($value)
     {
@@ -61,7 +61,7 @@ class Master extends CI_Controller
         $produk = $this->Basic->getDataWhere("produk",Array("ID_PRODUK" => $value));
         $data["detail"] = $produk[0];
         $this->load->view("HeaderMaster");
-        $this->load->view("updateform/UpdateForm",$data);
+        $this->load->view("UpdateForm/UpdateForm",$data);
     }
     function UpdateProduk()
     {
@@ -133,7 +133,7 @@ class Master extends CI_Controller
             $msg = Array();
             
             $value = Array("ID_PRODUK"=>$fakta["Id"],"NAMA_PRODUK"=>$fakta["Nama"],"HARGA_JUAL"=>$fakta["Harga"],"MEREK_PRODUK"=>$fakta["Merek"],"STOK"=>$fakta["Stok"],"KETERANGAN"=>$fakta["Keterangan"]);
-            $this->Basic->Insert("Produk",$value); 
+            $this->Basic->Insert("produk",$value); 
 			
 			$autoGenRincian = $this->getAutogenRincian();
 			$valrincian = Array("ID_RINCIAN"=>$autoGenRincian,"ID_PRODUK"=>$fakta["Id"],"JENIS_PRODUK"=>$fakta["jenis"],"KATEGORI_PRODUK"=>$fakta["kategori"]);
