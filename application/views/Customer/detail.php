@@ -450,34 +450,34 @@
 									<div class="flip-container">
 										<div class="flipper">
 											<div class="front">
-												<a href="detail.html">
+												<a href="">
 													<?php $ctr=0;foreach($gambarOther as $g){ ?>
 														<?php if($ctr==$counter){?>
-															<img src="<?php echo base_url(); ?>Produk/<?php echo $g["NAMA_GAMBAR"].$g["EXTENSI"]; ?>" alt=""  class="img-responsive img-produk">
+															<img id ="<?php echo $o->ID_PRODUK; ?>"src="<?php echo base_url(); ?>Produk/<?php echo $g["NAMA_GAMBAR"].$g["EXTENSI"]; ?>" alt=""  class="img-responsive detailBarang img-produk">
 														<?php } ?>
 													<?php $ctr++;} ?>
 												</a>
 											</div>
 											<div class="back">
-												<a href="detail.html">
+												<a href="">
 													<?php $ctr=0;foreach($gambarOther as $g){ ?>
 														<?php if($ctr==$counter){?>
-															<img src="<?php echo base_url(); ?>Produk/<?php echo $g["NAMA_GAMBAR"].$g["EXTENSI"]; ?>" alt=""  class="img-responsive img-produk">
+															<img id ="<?php echo $o->ID_PRODUK; ?>"src="<?php echo base_url(); ?>Produk/<?php echo $g["NAMA_GAMBAR"].$g["EXTENSI"]; ?>" alt=""  class="img-responsive detailBarang img-produk">
 														<?php } ?>
 													<?php $ctr++;} ?>
 												</a>
 											</div>
 										</div>
 									</div>
-									<a href="detail.html" class="invisible">
+									<a href="" class="invisible">
 										<?php $ctr=0;foreach($gambarOther as $g){ ?>
 											<?php if($ctr==$counter){?>
-												<img src="<?php echo base_url(); ?>Produk/<?php echo $g["NAMA_GAMBAR"].$g["EXTENSI"]; ?>" alt=""  class="img-responsive img-produk">
+												<img id ="<?php echo $o->ID_PRODUK; ?>"src="<?php echo base_url(); ?>Produk/<?php echo $g["NAMA_GAMBAR"].$g["EXTENSI"]; ?>" alt=""  class="img-responsive detailBarang img-produk">
 											<?php } ?>
 										<?php $ctr++;} ?>
 									</a>
 									<div class="text">
-										<h3><?php echo $o->NAMA_PRODUK;?></h3>
+										<h3 id="<?php echo $o->ID_PRODUK; ?>" class="detailBarang"><?php echo $o->NAMA_PRODUK;?></h3>
 										<p class="price"><?php echo formatRp($o->HARGA_JUAL); $counter++;?></p>
 									</div>
 								</div>
