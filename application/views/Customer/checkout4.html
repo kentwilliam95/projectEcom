@@ -152,6 +152,7 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li class="active"><a href="index.html">Home</a>
                     </li>
+					
                     <?php foreach($kategori as $k){ ?>
 					<li class="dropdown yamm-fw">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200"><?php echo $k->kategori_produk; ?> <b class="caret"></b></a>
@@ -166,7 +167,7 @@
 												<ul>
 													<?php foreach($barang as $b){?>
 													<?php if($b->kategori_produk==$k->kategori_produk && $b->jenis_produk ==$s->jenis_produk){ ?>
-													<li><a class="linkProduk" id="<?php echo $b->merek_produk;?>"href=""><?php echo $b->merek_produk;?></a>
+													<li><a class="linkProduk" id="<?php echo $b->merek_produk."|".$b->jenis_produk;?>"href=""><?php echo $b->merek_produk;?></a>
 													</li>
 													<?php } ?>
 													<?php } ?>

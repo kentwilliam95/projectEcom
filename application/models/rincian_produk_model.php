@@ -21,7 +21,7 @@ class Rincian_produk_model extends CI_Model {
 	
 	function getBannerPromo()
 	{
-		return $this->db->query("select * from hpromosi")->result();
+		return $this->db->query("select * from hpromosi WHERE `STATUS`  = 'Y'")->result();
 	}
 	
 	function getPromoById($id)
@@ -78,6 +78,13 @@ class Rincian_produk_model extends CI_Model {
 		$this->db->distinct();
 		$this->db->select('jenis_produk,kategori_produk');
 		return $this->db->get('rincian_produk')->result();
+	}
+	
+	function searchProdukByKategori($id)
+	{
+		
+		return $this->db->query("SELECT * FROM PRODUK WHERE ID_PRODUK IN (SELECT ID_PRODUK FROM rincian_produk WHERE KATEGORI_PRODUK = '".$id ."');")->result();
+		
 	}
 	
 	function selectOther($id)
